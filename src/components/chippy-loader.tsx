@@ -69,7 +69,7 @@ type Props = {
 const SvgComponent: React.FC<any & {theme: Theme}> = (props) => {
   const {theme} = props;
 
-  const darkAccent = getDarkenedColor(theme.accent.c, 0.8);
+  const darkAccent = getDarkenedColor(theme.accent.c, 0.7);
   const colorMap = {
     'upper-body': theme.mod.t,
     'lower-body': theme.mod.c,

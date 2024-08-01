@@ -121,15 +121,6 @@ export const Settings = () => {
               </Detail>
             </ControlRow>
             <ControlRow>
-              <Label>Light Mode</Label>
-              <Detail>
-                <AccentSlider
-                  onChange={() => dispatch(toggleThemeMode())}
-                  isChecked={themeMode === 'light'}
-                />
-              </Detail>
-            </ControlRow>
-            <ControlRow>
               <Label>Keycap Theme</Label>
               <Detail>
                 <AccentSelect

@@ -53,12 +53,12 @@ a:hover {
 }
 :root {
   --color_error: #d15e5e;
-  --color_light-grey: #d9d9d9;
-  --color_medium-grey: #707070;
+  --color_light-grey: #b3b3b3;
+  --color_medium-grey: #84744c;
 
-  --color_dark-grey: #414141;
-  --color_light-jet: #222;
-  --color_jet: #1d1b1b;
+  --color_dark-grey: #141311;
+  --color_light-jet: #2d2d2d;
+  --color_jet: #131210;
   --color_warm-white: #fffbfb;
   --color_tinge: #c7c3c3;
   --color_tinge-light: #ebe4e4;
@@ -80,7 +80,7 @@ html[data-theme-mode='dark'] {
   --color_icon-highlighted: var(--color_jet);
   --bg_menu: var(--color_light-jet);
   --color_control: var(--color_dark-grey);
-  --bg_control: var(--color_dark-grey);
+  --bg_control: var(--color_light-jet);
   --bg_outside-accent: var(--color_dark-grey);
   --bg_control_disabled: var(--color_dark-grey);
   --bg_control-highlighted: var(--color_light-grey);

@@ -249,14 +249,14 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
     DisplayMode.Test === mode
       ? pressedState === KeycapState.Unpressed
         ? wasPressed
-          ? 'mediumvioletred'
+          ? '#6a30e3'
           : 'lightgrey'
-        : 'mediumvioletred'
+        : '#5b39a3'
       : pressedState === KeycapState.Unpressed
       ? 'lightgrey'
       : 'lightgrey';
   const keycapOpacity =
-    pressedState === KeycapState.Unpressed ? (wasPressed ? 0.4 : 0) : 0.6;
+    pressedState === KeycapState.Unpressed ? (wasPressed ? 0.5 : 0) : 0.6;
 
   const [onClick, onPointerOver, onPointerOut, onPointerDown] = useMemo(() => {
     const noop = () => {};
@@ -378,9 +378,9 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
               : selected
               ? '.75s infinite alternate select-glow'
               : '',
-            background: getDarkenedColor(props.color.c, 0.8),
+            background: getDarkenedColor(props.color.c, 0.4),
             transform: `perspective(100px) translateZ(${keycapZ}px)`,
-            borderRadius: 3,
+            borderRadius: 7,
             width:
               textureWidth * CSSVarObject.keyXPos - CSSVarObject.keyXSpacing,
             height:

@@ -9,6 +9,20 @@ export type Theme = {
 
 export const THEMES = {
   ...{
+    HELIX: {
+      alpha: {
+        c: '#2a2a2b',
+        t: '#b39d50',
+      },
+      mod: {
+        c: '#2a2a2b',
+        t: '#ab914d',
+      },
+      accent: {
+        c: '#bf9847',
+        t: '#615435',
+      },
+    },
     OLIVIA_DARK: {
       alpha: {
         c: '#363434',

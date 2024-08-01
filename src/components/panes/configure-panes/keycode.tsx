@@ -71,7 +71,7 @@ const Keycode = styled(Button)<{disabled: boolean}>`
   border-radius: 10px;
   &:hover {
     border-color: var(--color_accent);
-    transform: translate3d(0, -2px, 0);
+    transform: rotate3d(0, 0, 1, 15deg);
   }
   ${(props: any) => props.disabled && `cursor:not-allowed;filter:opacity(50%);`}
 `;
@@ -102,7 +102,7 @@ const KeycodeContainer = styled.div`
 const KeycodeDesc = styled.div`
   position: fixed;
   bottom: 0;
-  background: #d9d9d97a;
+  background: #6e4fb8ca;
   box-sizing: border-box;
   transition: opacity 0.4s ease-out;
   height: 25px;

@@ -15,14 +15,14 @@ const AccentButtonBase = styled.button<AccentButtonProps>`
   font-size: 20px;
   border-radius: 5px;
   color: var(--color_accent);
-  border: 1px solid var(--color_accent);
+  border: 0px solid var(--color_accent);
   display: inline-block;
   box-sizing: border-box;
   pointer-events: ${(props) => (props.disabled ? 'none' : 'auto')};
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
 
   &:hover {
-    border: 1px solid var(--color_accent);
+    border: 0px solid var(--color_accent);
   }
 `;
 export const AccentButton = styled(AccentButtonBase)`
