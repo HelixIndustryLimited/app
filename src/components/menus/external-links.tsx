@@ -14,7 +14,7 @@ const ExternalLinkContainer = styled.span`
 
 const ExternalLinkContainer_helix = styled.span`
   position: absolute;
-  left: 1em;
+  left: 0.5em;
   display: flex;
   gap: 1em;
 `;
@@ -23,7 +23,7 @@ export const ExternalLinks_helix = () => (
   <ExternalLinkContainer_helix>
     <a href="https://docs.helix.site" target="_blank">
       <CategoryIconContainer>
-        <HelixLogo height="30px" fill="currentColor" />
+        <HelixLogo height="28px" fill="currentColor" />
         <CategoryMenuTooltip>Docs</CategoryMenuTooltip>
       </CategoryIconContainer>
     </a>
