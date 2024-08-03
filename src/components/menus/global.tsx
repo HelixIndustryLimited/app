@@ -8,11 +8,11 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {CategoryMenuTooltip} from '../inputs/tooltip';
 import {CategoryIconContainer} from '../panes/grid';
 import {ErrorLink, ErrorsPaneConfig} from '../panes/errors';
-import {ExternalLinks} from './external-links';
+import {ExternalLinks, ExternalLinks_helix} from './external-links';
 
 const Container = styled.div`
   width: 100vw;
-  height: 25px;
+  height: 30px;
   padding: 12px 0;
   border-bottom: 1px solid var(--border_color_cell);
   display: flex;
@@ -55,6 +55,7 @@ export const UnconnectedGlobalMenu = () => {
       <GlobalContainer>
         <ErrorLink />
         {Panes}
+        <ExternalLinks_helix />
         <ExternalLinks />
       </GlobalContainer>
     </React.Fragment>
