@@ -53,18 +53,18 @@ a:hover {
 }
 :root {
   --color_error: #d15e5e;
-  --color_light-grey: #b3b3b3;
-  --color_medium-grey: #84744c;
+  --color_light-grey: #d6d6d6;
+  --color_medium-grey: #8e754b;
 
   --color_dark-grey: #151412;
-  --color_light-jet: #2d2d2d;
+  --color_light-jet: #282828;
   --color_jet: #131210;
   --color_warm-white: #fffbfb;
   --color_tinge: #c7c3c3;
   --color_tinge-light: #ebe4e4;
   --color_tinge-dark: #796c6c;
-  --box-shadow-keycap: inset -1px -1px 0 rgb(0 0 0 / 20%),
-    inset 1px 1px 0 rgb(255 255 255 / 20%);
+  --box-shadow-keycap: inset -2px -2px 0 rgb(0 0 0 / 20%),
+    inset 2px 2px 0 rgba(113, 102, 58, 0.2);
   --box-shadow-keyboard: var(--box-shadow-keycap);
 
 }
@@ -127,6 +127,13 @@ html[data-theme-mode='light'] {
   font-family: Symbola;
   src: url(/fonts/Symbola.ttf) format('opentype');
 }
+
+@font-face {
+  font-family: OpenCherry;
+  src: url(/fonts/OpenCherry-Regular.otf) format('opentype');
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 
 @keyframes border-glow {
   0% {

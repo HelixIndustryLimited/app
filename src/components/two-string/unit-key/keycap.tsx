@@ -66,7 +66,7 @@ const paintKeycapLabel = (
 
   context.scale(dpi, dpi);
   const fontFamily =
-    'Fira Sans, Arial Rounded MT, Arial Rounded MT Bold, Arial';
+    'OpenCherry, Varela Round, Fira Sans, Arial Rounded MT, Arial Rounded MT Bold, Arial';
   // Margins from face edge to where text is drawn
   const topLabelMargin = {x: 4, y: 4};
   const bottomLabelMargin = {x: 4, y: 4};
@@ -85,11 +85,11 @@ const paintKeycapLabel = (
   context.fillStyle = legendColor;
   if (label === undefined) {
   } else if (label.topLabel && label.bottomLabel) {
-    let fontSize = 16;
+    let fontSize = 15;
     let fontHeight = 0.75 * fontSize;
     let topLabelOffset = label.offset[0] * fontHeight;
     let bottomLabelOffset = label.offset[1] * fontHeight;
-    context.font = `bold ${fontSize}px ${fontFamily}`;
+    context.font = `normal ${fontSize}px ${fontFamily}`;
     context.fillText(
       label.topLabel,
       topLabelMargin.x,
@@ -104,7 +104,7 @@ const paintKeycapLabel = (
     let fontSize = 13 * label.size;
     let fontHeight = 0.75 * fontSize;
     let faceMidLeftY = canvasHeight / 2;
-    context.font = `bold ${fontSize}px ${fontFamily}`;
+    context.font = `normal ${fontSize}px ${fontFamily}`;
     context.fillText(
       label.label,
       centerLabelMargin.x,
@@ -116,9 +116,9 @@ const paintKeycapLabel = (
       canvasWidth - centerLabelMargin.x
     );
   } else if (typeof label.label === 'string') {
-    let fontSize = 22;
+    let fontSize = 19;
     let fontHeight = 0.75 * fontSize;
-    context.font = `bold ${fontSize}px ${fontFamily}`;
+    context.font = `normal ${fontSize}px ${fontFamily}`;
     context.fillText(
       label.label,
       singleLabelMargin.x,
@@ -249,9 +249,9 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
     DisplayMode.Test === mode
       ? pressedState === KeycapState.Unpressed
         ? wasPressed
-          ? '#6a30e3'
+          ? '#7b27d6'
           : 'lightgrey'
-        : '#5b39a3'
+        : '#39a380'
       : pressedState === KeycapState.Unpressed
       ? 'lightgrey'
       : 'lightgrey';
@@ -420,13 +420,16 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
 const GlowContainer = styled.div<{$selected: boolean}>`
   box-sizing: border-box;
   padding: 2px 6px 10px 6px;
-  transition: transform 0.2s ease-out;
-  box-shadow: inset -1px -1px 0 rgb(0 0 0 / 20%),
-    inset 1px 1px 0 rgb(255 255 255 / 20%);
+  transition: transform 0.2s ease-out, border 0.2s ease-out;
+  box-shadow: inset -1px -1px 0 #111,
+    inset 0px 1px 0 #36342e;
   animation: ${(p) =>
     p.$selected ? '.75s infinite alternate select-glow' : 'initial'};
   &:hover {
     transform: perspective(100px) translateZ(-5px);
     animation: 0.5s 1 forwards select-glow;
+    border: 2px solid rgb(50, 189, 129); /* 悬停时显示边框，颜色可自定义 */
   }
+  // 选中状态时固定显示边框（与悬停颜色一致）
+  ${(p) => p.$selected && `border: 2px solid rgb(110, 50, 189);`}
 `;

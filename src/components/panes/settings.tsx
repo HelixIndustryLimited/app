@@ -120,7 +120,7 @@ export const Settings = () => {
                 />
               </Detail>
             </ControlRow>
-            <ControlRow>
+            {/* <ControlRow>
               <Label>Keycap Theme</Label>
               <Detail>
                 <AccentSelect
@@ -131,8 +131,8 @@ export const Settings = () => {
                   }}
                 />
               </Detail>
-            </ControlRow>
-            <ControlRow>
+            </ControlRow> */}
+            {/* <ControlRow>
               <Label>Render Mode</Label>
               <Detail>
                 <AccentSelect
@@ -143,7 +143,7 @@ export const Settings = () => {
                   }}
                 />
               </Detail>
-            </ControlRow>
+            </ControlRow> */}
             <ControlRow>
               <Label>Show Diagnostic Information</Label>
 

@@ -35,10 +35,12 @@ const KeyboardBG = styled.div<{
   right: 0;
   bottom: 0;
   left: 0;
-  background: ${(props) =>
-    `linear-gradient(30deg, rgba(150,150,150,1) 10%,${getDarkenedColor(
-      props.$color,
-    )} 50%, rgba(150,150,150,1) 90%)`};
+  background: linear-gradient(
+    to bottom, 
+    #151412 0%,       /* 顶部黑色 */
+    #151412 30%,      /* 30% 位置保持黑色 */
+rgb(45, 40, 38) 100% /* 从 30% 开始渐变到灰色 */
+  );
   opacity: ${(props) => (props.$visible ? 1 : 0)};
 `;
 

@@ -62,8 +62,8 @@ const Keycode = styled(Button)<{disabled: boolean}>`
   line-height: 18px;
   border-radius: 64px;
   font-size: 14px;
-  border: 4px solid var(--border_color_icon);
-  background: var(--bg_control);
+  border: 2.5px solid #3e3e3e;
+  background: #1c1c1c;
   color: var(--color_label-highlighted);
   margin: 0;
   box-shadow: none;
@@ -71,7 +71,7 @@ const Keycode = styled(Button)<{disabled: boolean}>`
   border-radius: 10px;
   &:hover {
     border-color: var(--color_accent);
-    transform: rotate3d(0, 0, 1, 15deg);
+    transform: translate3d(0, -4px, 0);
   }
   ${(props: any) => props.disabled && `cursor:not-allowed;filter:opacity(50%);`}
 `;
@@ -102,9 +102,14 @@ const KeycodeContainer = styled.div`
 const KeycodeDesc = styled.div`
   position: fixed;
   bottom: 0;
-  background: #6e4fb8ca;
+  background: linear-gradient(
+    to right, 
+    rgba(52, 112, 50, 0.89) 0%,       /* 左侧半透明紫色 */
+    rgba(111, 79, 184, 0.83) 15%,      /* 30% 位置保持半透明紫色 */
+    rgba(111, 79, 184, 0.0) 20%         /* 从 30% 开始渐变为完全透明 */
+  );
   box-sizing: border-box;
-  transition: opacity 0.4s ease-out;
+  transition: opacity 0.2s ease-out;
   height: 25px;
   width: 100%;
   line-height: 14px;

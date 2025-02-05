@@ -35,7 +35,7 @@ export const CaseInsideBorder = 10;
 
 export const Case = React.memo((props: {width: number; height: number}) => {
   const theme = useAppSelector(getSelectedTheme);
-  const customColor = '#1a1a1a';
+  const customColor = '#171717';
   const outsideColor = useMemo(() => theme[KeyColorType.Accent].c, [theme]);
   const properWidth =
     props.width * CSSVarObject.keyXPos - CSSVarObject.keyXSpacing;
@@ -58,7 +58,7 @@ export const Case = React.memo((props: {width: number; height: number}) => {
         width={outsideWidth}
         height={outsideHeight}
         style={{
-          borderRadius: 20,
+          borderRadius: 14,
           boxShadow: 'var(--box-shadow-keyboard)',
         }}
       ></OuterCase>
