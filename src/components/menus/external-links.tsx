@@ -36,7 +36,6 @@ export const ExternalLinks = () => (
     <a href="https://caniusevia.com/" target="_blank">
       <CategoryIconContainer>
         <VIALogo height="25px" fill="currentColor" />
-        <CategoryMenuTooltip>Docs</CategoryMenuTooltip>
       </CategoryIconContainer>
     </a>
   </ExternalLinkContainer>

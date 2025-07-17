@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {faPlus} from '@fortawesome/free-solid-svg-icons';
+import {faPlus, faKeyboard, faStethoscope, faBrush, faGear, faStar, faBagShopping, faSignature, faPlug} from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import ChippyLoader from '../chippy-loader';
 import LoadingText from '../loading-text';
 import {CenterPane, ConfigureBasePane} from './pane';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {useLocation} from 'wouter';
+import Dock from '../dock/dock';
 import {
   CustomFeaturesV2,
   getLightingDefinition,
@@ -23,7 +25,6 @@ import * as RotaryEncoder from './configure-panes/custom/satisfaction75';
 import {makeCustomMenus} from './configure-panes/custom/menu-generator';
 import {LayerControl} from './configure-panes/layer-control';
 import {Badge} from './configure-panes/badge';
-import {AccentButtonLarge} from '../inputs/accent-button';
 import {useAppSelector} from 'src/store/hooks';
 import {getSelectedDefinition} from 'src/store/definitionsSlice';
 import {
@@ -168,10 +169,35 @@ const Loader: React.FC<{
     <LoaderPane>
       {<ChippyLoader theme={theme} progress={loadProgress || null} />}
       {(showButton || noConnectedDevices) && !noSupportedIds && !isElectron ? (
-        <AccentButtonLarge onClick={() => dispatch(reloadConnectedDevices())}>
+        <button
+          onClick={() => dispatch(reloadConnectedDevices())}
+          style={{
+            border: '1px solid #222',
+            outline: 'none',
+            background: '#000',
+            color: 'white',
+            fontSize: '16px',
+            textAlign: 'center',
+            padding: '16px 24px',
+            borderRadius: '20px',
+            cursor: 'pointer',
+            transition: 'padding 0.3s ease',
+          }}
+          onMouseEnter={(e) => {
+            (e.target as HTMLButtonElement).style.padding = '18px 28px';
+            const icon = (e.target as HTMLButtonElement).querySelector('svg');
+            if (icon) icon.style.color = '#4cc194ff';
+          }}
+          onMouseLeave={(e) => {
+            (e.target as HTMLButtonElement).style.padding = '16px 24px';
+            (e.target as HTMLButtonElement).style.backgroundColor = '#000';
+            const icon = (e.target as HTMLButtonElement).querySelector('svg');
+            if (icon) icon.style.color = 'white';
+          }}
+        >
           Authorize device
-          <FontAwesomeIcon style={{marginLeft: '10px'}} icon={faPlus} />
-        </AccentButtonLarge>
+          <FontAwesomeIcon style={{marginLeft: '10px', transition: 'color 0.3s ease'}} icon={faPlug} />
+        </button>
       ) : (
         <LoadingText isSearching={!selectedDefinition} />
       )}
@@ -192,23 +218,73 @@ const LoaderPane = styled(CenterPane)`
   z-index: 4;
 `;
 
+const DockContainer = styled.div`
+  position: fixed;
+  top: 54px;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 0;
+  margin-top: -230px;
+`;
+
 export const ConfigurePane = () => {
   const selectedDefinition = useAppSelector(getSelectedDefinition);
   const loadProgress = useAppSelector(getLoadProgress);
   const renderMode = useAppSelector(getRenderMode);
+  const [, setLocation] = useLocation();
+
+  const dockItems = [
+    { 
+      icon: <FontAwesomeIcon icon={faKeyboard} size="lg" />, 
+      label: 'Configure', 
+      onClick: () => setLocation('/') 
+    },
+    { 
+      icon: <FontAwesomeIcon icon={faStethoscope} size="lg" />, 
+      label: 'Key Tester', 
+      onClick: () => setLocation('/test') 
+    },
+    { 
+      icon: <FontAwesomeIcon icon={faBrush} size="lg" />, 
+      label: 'Design', 
+      onClick: () => setLocation('/design') 
+    },
+    { 
+      icon: <FontAwesomeIcon icon={faGear} size="lg" />, 
+      label: 'Settings', 
+      onClick: () => setLocation('/settings') 
+    },
+  ];
 
   const showLoader = !selectedDefinition || loadProgress !== 1;
-  return showLoader ? (
-    renderMode === '2D' ? (
-      <Loader
-        selectedDefinition={selectedDefinition || null}
-        loadProgress={loadProgress}
-      />
-    ) : null
-  ) : (
-    <ConfigureBasePane>
-      <ConfigureGrid />
-    </ConfigureBasePane>
+  return (
+    <>
+      {showLoader ? (
+        renderMode === '2D' ? (
+          <Loader
+            selectedDefinition={selectedDefinition || null}
+            loadProgress={loadProgress}
+          />
+        ) : null
+      ) : (
+        <ConfigureBasePane>
+          <ConfigureGrid />
+        </ConfigureBasePane>
+      )}
+      <DockContainer>
+        <Dock 
+          items={dockItems}
+          panelHeight={40}
+          baseItemSize={40}
+          magnification={45}
+          distance={90}
+        />
+      </DockContainer>
+    </>
   );
 };
 

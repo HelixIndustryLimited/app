@@ -31,10 +31,12 @@ import {THEMES} from 'src/utils/themes';
 import {MenuContainer} from './configure-panes/custom/menu-generator';
 import {MenuTooltip} from '../inputs/tooltip';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faToolbox} from '@fortawesome/free-solid-svg-icons';
+import {faToolbox, faKeyboard, faStethoscope, faBrush, faGear} from '@fortawesome/free-solid-svg-icons';
 import {getSelectedConnectedDevice} from 'src/store/devicesSlice';
 import {ErrorMessage} from '../styled';
 import {webGLIsAvailable} from 'src/utils/test-webgl';
+import {useLocation} from 'wouter';
+import Dock from '../dock/dock';
 
 const Container = styled.div`
   display: flex;
@@ -46,6 +48,19 @@ const Container = styled.div`
 const DiagnosticContainer = styled(Container)`
   margin-top: 20px;
   padding-top: 20px;
+`;
+
+const DockContainer = styled.div`
+  position: fixed;
+  top: 54px;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 0;
+  margin-top: -230px;
 `;
 
 const SettingsErrorMessage = styled(ErrorMessage)`
@@ -61,6 +76,7 @@ export const Settings = () => {
   const themeName = useAppSelector(getThemeName);
   const renderMode = useAppSelector(getRenderMode);
   const selectedDevice = useAppSelector(getSelectedConnectedDevice);
+  const [, setLocation] = useLocation();
 
   const [showDiagnostics, setShowDiagnostics] = useState(false);
 
@@ -87,32 +103,57 @@ export const Settings = () => {
   const renderModeDefaultValue = renderModeOptions.find(
     (opt) => opt.value === renderMode,
   );
+  
+  const dockItems = [
+    { 
+      icon: <FontAwesomeIcon icon={faKeyboard} size="lg" />, 
+      label: 'Configure', 
+      onClick: () => setLocation('/') 
+    },
+    { 
+      icon: <FontAwesomeIcon icon={faStethoscope} size="lg" />, 
+      label: 'Key Tester', 
+      onClick: () => setLocation('/test') 
+    },
+    { 
+      icon: <FontAwesomeIcon icon={faBrush} size="lg" />, 
+      label: 'Design', 
+      onClick: () => setLocation('/design') 
+    },
+    { 
+      icon: <FontAwesomeIcon icon={faGear} size="lg" />, 
+      label: 'Settings', 
+      onClick: () => setLocation('/settings') 
+    },
+  ];
+  
   return (
-    <Pane>
-      <Grid style={{overflow: 'hidden'}}>
+    <>
+      <Pane>
+        <Grid style={{overflow: 'hidden'}}>
         <MenuCell style={{pointerEvents: 'all', borderTop: 'none'}}>
-          <MenuContainer>
+          {/* <MenuContainer>
             <Row $selected={true}>
               <IconContainer>
                 <FontAwesomeIcon icon={faToolbox} />
                 <MenuTooltip>General</MenuTooltip>
               </IconContainer>
             </Row>
-          </MenuContainer>
+          </MenuContainer> */}
         </MenuCell>
         <SpanOverflowCell style={{flex: 1, borderWidth: 0}}>
           <Container>
             <ControlRow>
-              <Label>Show Design tab</Label>
+              {/* <Label>Show Design tab</Label>
               <Detail>
                 <AccentSlider
                   onChange={() => dispatch(toggleCreatorMode())}
                   isChecked={showDesignTab}
                 />
-              </Detail>
+              </Detail> */}
             </ControlRow>
             <ControlRow>
-              <Label>Fast Key Mapping</Label>
+              <Label className="light-label">Fast Key Mapping</Label>
               <Detail>
                 <AccentSlider
                   onChange={() => dispatch(toggleFastRemap())}
@@ -145,7 +186,7 @@ export const Settings = () => {
               </Detail>
             </ControlRow> */}
             <ControlRow>
-              <Label>Show Diagnostic Information</Label>
+              <Label className="light-label">Show Diagnostic Information</Label>
 
               <Detail>
                 {selectedDevice ? (
@@ -164,7 +205,7 @@ export const Settings = () => {
           {showDiagnostics && selectedDevice ? (
             <DiagnosticContainer>
               <ControlRow>
-                <Label>VIA Firmware Protocol</Label>
+                <Label className="light-label">VIA Firmware Protocol</Label>
                 <Detail>{selectedDevice.protocol}</Detail>
               </ControlRow>
             </DiagnosticContainer>
@@ -172,5 +213,15 @@ export const Settings = () => {
         </SpanOverflowCell>
       </Grid>
     </Pane>
+    <DockContainer>
+      <Dock 
+        items={dockItems}
+          panelHeight={40}
+          baseItemSize={40}
+          magnification={45}
+          distance={90}
+      />
+    </DockContainer>
+  </>
   );
 };

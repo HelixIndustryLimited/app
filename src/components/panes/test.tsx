@@ -31,11 +31,13 @@ import {
 import {MenuContainer} from './configure-panes/custom/menu-generator';
 import {MenuTooltip} from '../inputs/tooltip';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faCircleQuestion} from '@fortawesome/free-solid-svg-icons';
+import {faCircleQuestion, faKeyboard, faStethoscope, faBrush, faGear} from '@fortawesome/free-solid-svg-icons';
 import {useProgress} from '@react-three/drei';
 import {AccentSelect} from '../inputs/accent-select';
 import {AccentRange} from '../inputs/accent-range';
 import {TestKeyboardSoundsMode} from '../void/test-keyboard-sounds';
+import {useLocation} from 'wouter';
+import Dock from '../dock/dock';
 
 const Container = styled.div`
   display: flex;
@@ -48,7 +50,19 @@ const TestPane = styled(Pane)`
   display: flex;
   height: 100%;
   max-width: 100vw;
-  flex-direction: column;
+`;
+
+const DockContainer = styled.div`
+  position: fixed;
+  top: 54px;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 0;
+  margin-top: -230px;
 `;
 
 export const TestContext = React.createContext([
@@ -65,6 +79,7 @@ export const Test: FC = () => {
   const testKeyboardSoundsSettings = useAppSelector(
     getTestKeyboardSoundsSettings,
   );
+  const [, setLocation] = useLocation();
 
   const [testContextObj] = useContext(TestContext);
   const {progress} = useProgress();
@@ -122,23 +137,47 @@ export const Test: FC = () => {
     (opt) => opt.value === testKeyboardSoundsSettings.mode,
   );
 
+  const dockItems = [
+    { 
+      icon: <FontAwesomeIcon icon={faKeyboard} size="lg" />, 
+      label: 'Configure', 
+      onClick: () => setLocation('/') 
+    },
+    { 
+      icon: <FontAwesomeIcon icon={faStethoscope} size="lg" />, 
+      label: 'Key Tester', 
+      onClick: () => setLocation('/test') 
+    },
+    { 
+      icon: <FontAwesomeIcon icon={faBrush} size="lg" />, 
+      label: 'Design', 
+      onClick: () => setLocation('/design') 
+    },
+    { 
+      icon: <FontAwesomeIcon icon={faGear} size="lg" />, 
+      label: 'Settings', 
+      onClick: () => setLocation('/settings') 
+    },
+  ];
+
   return progress !== 100 ? null : (
-    <TestPane>
-      <Grid>
-        <MenuCell style={{pointerEvents: 'all'}}>
-          <MenuContainer>
-            <Row $selected={true}>
-              <IconContainer>
-                <FontAwesomeIcon icon={faCircleQuestion} />
-                <MenuTooltip>Check Key</MenuTooltip>
-              </IconContainer>
-            </Row>
-          </MenuContainer>
-        </MenuCell>
-        <SpanOverflowCell>
+    <>
+      <TestPane>
+        <Grid>
+          <MenuCell style={{pointerEvents: 'all'}}>
+            {/* <MenuContainer>
+              <Row $selected={true}>
+                <IconContainer>
+                  <FontAwesomeIcon icon={faCircleQuestion} />
+                  <MenuTooltip>Check Key</MenuTooltip>
+                </IconContainer>
+              </Row>
+            </MenuContainer> */}
+          </MenuCell>
+          <SpanOverflowCell>
           <Container>
             <ControlRow>
-              <Label>Reset Keyboard</Label>
+              <Label className="light-label">Reset Keyboard</Label>
               <Detail>
                 <AccentButton onClick={testContextObj.clearTestKeys}>
                   Reset
@@ -147,7 +186,7 @@ export const Test: FC = () => {
             </ControlRow>
             {canUseMatrixState && selectedDefinition ? (
               <ControlRow>
-                <Label>Test Matrix</Label>
+                <Label className="light-label">Test Matrix</Label>
                 <Detail>
                   <AccentSlider
                     isChecked={isTestMatrixEnabled}
@@ -160,7 +199,7 @@ export const Test: FC = () => {
               </ControlRow>
             ) : null}
             <ControlRow>
-              <Label>Key Sounds</Label>
+              <Label className="light-label">Key Sounds</Label>
               <Detail>
                 <AccentSlider
                   isChecked={testKeyboardSoundsSettings.isEnabled}
@@ -175,7 +214,7 @@ export const Test: FC = () => {
               </Detail>
             </ControlRow>
             <ControlRow>
-              <Label>Volume</Label>
+              <Label className="light-label">Volume</Label>
               <Detail>
                 <AccentRange
                   max={100}
@@ -192,7 +231,7 @@ export const Test: FC = () => {
               </Detail>
             </ControlRow>
             <ControlRow>
-              <Label>Transpose</Label>
+              <Label className="light-label">Transpose</Label>
               <Detail>
                 <AccentRange
                   max={24}
@@ -209,7 +248,7 @@ export const Test: FC = () => {
               </Detail>
             </ControlRow>
             <ControlRow>
-              <Label>Waveform</Label>
+              <Label className="light-label">Waveform</Label>
               <Detail>
                 <AccentSelect
                   isSearchable={false}
@@ -227,7 +266,7 @@ export const Test: FC = () => {
               </Detail>
             </ControlRow>
             <ControlRow>
-              <Label>Mode</Label>
+              <Label className="light-label">Mode</Label>
               <Detail>
                 <AccentSelect
                   isSearchable={false}
@@ -248,5 +287,15 @@ export const Test: FC = () => {
         </SpanOverflowCell>
       </Grid>
     </TestPane>
+    <DockContainer>
+      <Dock 
+        items={dockItems}
+          panelHeight={40}
+          baseItemSize={40}
+          magnification={45}
+          distance={90}
+      />
+    </DockContainer>
+  </>
   );
 };

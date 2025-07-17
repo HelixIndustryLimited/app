@@ -4,6 +4,9 @@ See https://stackoverflow.com/questions/40822458/styled-unicode-arrows-not-showi
  */
 @import url('https://fonts.googleapis.com/css?family=Fira+Sans');
 @import url('https://fonts.googleapis.com/css?family=Fira+Sans&text=%E2%86%90|%E2%86%92');
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Varela+Round&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 
 html,
 body {
@@ -133,8 +136,6 @@ html[data-theme-mode='light'] {
   src: url(/fonts/OpenCherry-Regular.otf) format('opentype');
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
-
 @keyframes border-glow {
   0% {
     border: 2px dashed var(--color_accent);
@@ -173,4 +174,11 @@ html[data-theme-mode='light'] {
   100% {
     filter: brightness(1.25);
   }
+}
+
+/* Light label text style for consistent usage across components */
+.light-label {
+  color: #bbb !important;
+  font-size: 16px !important;
+  font-weight: 300 !important;
 }

@@ -11,8 +11,10 @@ import styled from 'styled-components';
 const Container = styled.div`
   position: absolute;
   left: 15px;
-  font-weight: 400;
+  font-weight: 800;
   top: 10px;
+  font-family: "Quicksand";
+  letter-spacing: 1px;
 `;
 const Label = styled.label`
   font-size: 20px;
@@ -31,8 +33,10 @@ const LayerButton = styled.button<{$selected?: boolean}>`
       ? 'var(--color_inside-accent)'
       : 'var(--color_label-highlighted)'};
   cursor: pointer;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
+  font-family: "Quicksand";
+  border-radius: 5px;
   &:hover {
     border: none;
     background: ${(props) => (props.$selected ? 'auto' : 'var(--bg_menu)')};

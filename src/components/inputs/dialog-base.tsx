@@ -4,7 +4,7 @@ export const ModalBackground = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.5);
   width: 100%;
   height: 100%;
   display: flex;
@@ -14,13 +14,13 @@ export const ModalBackground = styled.div`
 `;
 
 export const ModalContainer = styled.div`
-  border: 2px solid var(--color_accent);
+  border: none
   min-width: 460px;
   max-width: 550px;
   min-height: 170px;
   gap: 20px;
-  background-color: var(--bg_menu);
-  border-radius: 6px;
+  background-color: #bbb;
+  border-radius: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,11 +30,13 @@ export const ModalContainer = styled.div`
 `;
 
 export const PromptText = styled.div`
+  padding: 20px 40px;
   font-weight: 500;
   user-select: none;
-  color: var(--color_label);
-  font-size: 20px;
+  color: #151412;
+  font-size: 18px;
   text-align: center;
+  font-family: "QuickSand"
 `;
 
 export const RowDiv = styled.div`

@@ -12,29 +12,30 @@ const AccentButtonBase = styled.button<AccentButtonProps>`
   min-width: 100px;
   text-align: center;
   outline: none;
-  font-size: 20px;
-  border-radius: 5px;
+  font-size: 16px;
+  border-radius: 12px;
   color: var(--color_accent);
-  border: 0px solid var(--color_accent);
+  border: none;
   display: inline-block;
   box-sizing: border-box;
   pointer-events: ${(props) => (props.disabled ? 'none' : 'auto')};
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
+  transition: color 0.2s ease;
 
   &:hover {
-    border: 0px solid var(--color_accent);
+    border: none;
   }
 `;
 export const AccentButton = styled(AccentButtonBase)`
   background-color: ${(props) =>
-    props.disabled ? 'var(--bg_control-disabled)' : 'var(--bg_outside-accent)'};
+    props.disabled ? 'var(--bg_control-disabled)' : '#121212'};
   color: ${(props) =>
-    props.disabled ? 'var(--bg_control)' : 'var(--color_accent)'};
-  border-color: ${(props) =>
-    props.disabled ? 'var(--bg_control)' : 'var(--color_accent)'};
+    props.disabled ? 'var(--bg_control)' : 'white'};
+  border: none;
 
   &:hover {
-    filter: brightness(0.7);
+    color: ${(props) =>
+      props.disabled ? 'var(--bg_control)' : '#ccc'};
   }
 `;
 export const AccentButtonLarge = styled(AccentButton)`
@@ -45,12 +46,13 @@ export const AccentButtonLarge = styled(AccentButton)`
 
 export const PrimaryAccentButton = styled(AccentButtonBase)`
   color: ${(props) =>
-    props.disabled ? 'var(--bg_control)' : 'var(--color_inside-accent)'};
+    props.disabled ? 'var(--bg_control)' : '#151412'};
   border-color: ${(props) =>
     props.disabled ? 'var(--bg_control)' : 'var(--color_accent)'};
   background-color: ${(props) =>
     props.disabled ? 'transparent' : 'var(--color_accent)'};
+  transition: filter 0.2s ease;
   &:hover {
-    filter: brightness(0.7);
+    filter: brightness(0.9);
   }
 `;

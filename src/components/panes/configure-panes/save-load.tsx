@@ -247,13 +247,13 @@ export const Pane: FC = () => {
       <SaveLoadPane>
         <Container>
           <ControlRow>
-            <Label>Save Current Layout</Label>
+            <Label className="light-label">Save Current Layout</Label>
             <Detail>
               <AccentButton onClick={saveLayout}>Save</AccentButton>
             </Detail>
           </ControlRow>
           <ControlRow>
-            <Label>Load Saved Layout</Label>
+            <Label className="light-label">Load Saved Layout</Label>
             <Detail>
               <AccentUploadButton onLoad={loadLayout}>Load</AccentUploadButton>
             </Detail>

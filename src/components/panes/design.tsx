@@ -7,7 +7,7 @@ import {AccentSlider} from '../inputs/accent-slider';
 import {AccentUploadButton} from '../inputs/accent-upload-button';
 import Layouts from '../Layouts';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faBook, faUpload, faXmark} from '@fortawesome/free-solid-svg-icons';
+import {faBook, faUpload, faXmark, faKeyboard, faStethoscope, faBrush, faGear} from '@fortawesome/free-solid-svg-icons';
 import {
   keyboardDefinitionV2ToVIADefinitionV2,
   isVIADefinitionV2,
@@ -20,6 +20,8 @@ import {
   VIADefinitionV3,
 } from '@the-via/reader';
 import type {DefinitionVersion} from '@the-via/reader';
+import {useLocation} from 'wouter';
+import Dock from '../dock/dock';
 import {
   ControlRow,
   Label,
@@ -109,6 +111,19 @@ const UploadIcon = styled.div`
     animation-timing-function: ease-in-out;
     font-size: 100px;
   }
+`;
+
+const DockContainer = styled.div`
+  position: fixed;
+  top: 54px;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 0;
+  margin-top: -230px;
 `;
 
 const makeReaderPromise = (file: File): Promise<[string, string]> => {
@@ -232,6 +247,7 @@ export const DesignTab: FC = () => {
   const selectedDefinitionIndex = useAppSelector(getSelectedDefinitionIndex);
   const showMatrix = useAppSelector(getShowMatrix);
   const [errors, setErrors] = useState<string[]>([]);
+  const [, setLocation] = useLocation();
   const versionDefinitions: DefinitionVersionMap[] = useMemo(
     () =>
       localDefinitions.filter(
@@ -250,15 +266,40 @@ export const DesignTab: FC = () => {
     versionDefinitions[selectedDefinitionIndex] &&
     versionDefinitions[selectedDefinitionIndex][definitionVersion];
   const uploadButton = useRef<HTMLInputElement>();
+  
+  const dockItems = [
+    { 
+      icon: <FontAwesomeIcon icon={faKeyboard} size="lg" />, 
+      label: 'Configure', 
+      onClick: () => setLocation('/') 
+    },
+    { 
+      icon: <FontAwesomeIcon icon={faStethoscope} size="lg" />, 
+      label: 'Key Tester', 
+      onClick: () => setLocation('/test') 
+    },
+    { 
+      icon: <FontAwesomeIcon icon={faBrush} size="lg" />, 
+      label: 'Design', 
+      onClick: () => setLocation('/design') 
+    },
+    { 
+      icon: <FontAwesomeIcon icon={faGear} size="lg" />, 
+      label: 'Settings', 
+      onClick: () => setLocation('/settings') 
+    },
+  ];
+  
   return (
-    <DesignPane
-      onDragOver={(evt: DragEvent) => {
-        evt.dataTransfer.effectAllowed = 'copyMove';
-        evt.dataTransfer.dropEffect = 'none';
-        evt.preventDefault();
-        evt.stopPropagation();
-      }}
-    >
+    <>
+      <DesignPane
+        onDragOver={(evt: DragEvent) => {
+          evt.dataTransfer.effectAllowed = 'copyMove';
+          evt.dataTransfer.dropEffect = 'none';
+          evt.preventDefault();
+          evt.stopPropagation();
+        }}
+      >
       <MessageDialog
         isOpen={!hideDesignWarning}
         onClose={() => {
@@ -294,19 +335,19 @@ export const DesignTab: FC = () => {
       </SinglePaneFlexCell>
       <Grid style={{overflow: 'hidden'}}>
         <MenuCell style={{pointerEvents: 'all'}}>
-          <MenuContainer>
+          {/* <MenuContainer>
             <Row $selected={true}>
               <IconContainer>
                 <FontAwesomeIcon icon={faBook} />
                 <MenuTooltip>Add Definition</MenuTooltip>
               </IconContainer>
             </Row>
-          </MenuContainer>
+          </MenuContainer> */}
         </MenuCell>
         <SpanOverflowCell>
           <Container>
             <ControlRow>
-              <Label>Load Draft Definition</Label>
+              <Label className="light-label">Load Draft Definition</Label>
               <Detail>
                 <AccentUploadButton
                   multiple
@@ -325,12 +366,12 @@ export const DesignTab: FC = () => {
               </Detail>
             </ControlRow>
             <ControlRow>
-              <Label>Use V2 definitions (deprecated)</Label>
+              <Label className="light-label">Use V2 definitions (deprecated)</Label>
               <Detail>
                 <AccentSlider
                   isChecked={definitionVersion === 'v2'}
                   onChange={(val) =>
-                    dispatch(updateDesignDefinitionVersion(val ? 'v2' : 'v3'))
+                    dispatch(updateDesignDefinitionVersion(val ? 'v2' : '3'))
                   }
                 />
               </Detail>
@@ -338,7 +379,7 @@ export const DesignTab: FC = () => {
             {definition && (
               <>
                 <ControlRow>
-                  <Label>Shown Keyboard Definition</Label>
+                  <Label className="light-label">Shown Keyboard Definition</Label>
                   <Detail>
                     <AccentSelect
                       onChange={(option: any) => {
@@ -369,7 +410,7 @@ export const DesignTab: FC = () => {
             )}
             {definition && (
               <ControlRow>
-                <Label>Show Matrix</Label>
+                <Label className="light-label">Show Matrix</Label>
                 <Detail>
                   <AccentSlider
                     isChecked={showMatrix}
@@ -386,8 +427,8 @@ export const DesignTab: FC = () => {
               </IndentedControlRow>
             ))}
             <ControlRow>
-              <Label>Draft Definitions</Label>
-              <Detail>
+              <Label className="light-label">Draft Definitions</Label>
+              <Detail style={{fontSize: '16px'}}>
                 {Object.values(versionDefinitions).length} Definitions
               </Detail>
             </ControlRow>
@@ -396,7 +437,7 @@ export const DesignTab: FC = () => {
                 <IndentedControlRow
                   key={`${definitionVersion}-${definition[definitionVersion].vendorProductId}`}
                 >
-                  <SubLabel>{definition[definitionVersion].name}</SubLabel>
+                  <SubLabel className="light-label">{definition[definitionVersion].name}</SubLabel>
                   <Detail>
                     {formatNumberAsHex(
                       definition[definitionVersion].vendorProductId,
@@ -423,5 +464,15 @@ export const DesignTab: FC = () => {
         </SpanOverflowCell>
       </Grid>
     </DesignPane>
+    {/* <DockContainer> */}
+      <Dock 
+        items={dockItems}
+          panelHeight={40}
+          baseItemSize={40}
+          magnification={45}
+          distance={90}
+      />
+    {/* </DockContainer> */}
+  </>
   );
 };

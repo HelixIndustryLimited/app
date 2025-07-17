@@ -1,5 +1,6 @@
 import React from 'react';
 import Select, {Props} from 'react-select';
+
 const customStyles = {
   option: (provided: any, state: any) => {
     return {
@@ -22,6 +23,7 @@ const customStyles = {
         : state.isFocused
         ? 'var(--color_accent)'
         : 'var(--color_accent)',
+      fontSize: '16px',
     };
   },
   container: (provided: any) => ({
@@ -37,6 +39,7 @@ const customStyles = {
   singleValue: (provided: any) => ({
     ...provided,
     color: 'var(--color_accent)',
+    fontSize: '16px',
   }),
   dropdownIndicator: (provided: any) => ({
     ...provided,
@@ -46,10 +49,19 @@ const customStyles = {
     ...provided,
     backgroundColor: 'var(--color_accent)',
   }),
+  // Apply borderRadius to the menu as well
+  menu: (provided: any) => ({
+    ...provided,
+    backgroundColor: 'var(--bg_menu)', // Ensure this matches menuList's background
+    borderRadius: '12px', // Match the borderRadius of menuList
+    overflow: 'hidden', // Crucial: Hides any overflowing content that might show
+  }),
   menuList: (provided: any) => ({
     ...provided,
     borderColor: 'var(--color_accent)',
     backgroundColor: 'var(--bg_menu)',
+    borderRadius: '12px', // Your desired borderRadius
+    fontSize: '16px',
   }),
   placeholder: (provided: any) => ({
     ...provided,
@@ -83,6 +95,8 @@ const customStyles = {
       background: 'var(--bg_menu)',
       overflow: 'hidden',
       width: state.selectProps.width || 250,
+      borderRadius: '12px',
+      fontSize: '16px',
     };
     return res;
   },

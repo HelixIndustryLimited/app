@@ -111,8 +111,10 @@ export const IndentedControlRow = styled(ControlRow)`
 `;
 
 export const Label = styled.label`
-  color: var(--color_label);
-  font-weight: 400;
+  color: #bbb;
+  font-family: 'GothamRounded-Light', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
 `;
 
 export const SubLabel = styled(Label)`
@@ -133,9 +135,10 @@ export const Row = styled.div<{$selected: boolean}>`
   margin-bottom: 15px;
   font-size: 20px;
   line-height: 20px;
-  text-transform: uppercase;
   color: ${(props) => getIconColor(props.$selected).style.color};
   border-left: 2px solid transparent;
+  font-family: "Quicksand";
+  letter-spacing: 1px;
 
   svg {
     height: 20px;

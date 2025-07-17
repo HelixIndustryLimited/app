@@ -66,7 +66,7 @@ const paintKeycapLabel = (
 
   context.scale(dpi, dpi);
   const fontFamily =
-    'OpenCherry, Varela Round, Fira Sans, Arial Rounded MT, Arial Rounded MT Bold, Arial';
+    'OpenCherry';
   // Margins from face edge to where text is drawn
   const topLabelMargin = {x: 4, y: 4};
   const bottomLabelMargin = {x: 4, y: 4};

@@ -21,10 +21,11 @@ const Slider = styled.span<{$ischecked?: boolean}>`
   right: 0;
   bottom: 0;
   background-color: ${(props) =>
-    props.$ischecked ? 'var(--color_accent)' : 'var(--bg_control)'};
+    props.$ischecked ? 'var(--color_accent)' : '#121212'};
   -webkit-transition: 0.4s;
   transition: 0.4s;
-  border-radius: 4px;
+  border-radius: 17px;
+  border: none;
   &:before {
     position: absolute;
     content: '';
@@ -32,9 +33,9 @@ const Slider = styled.span<{$ischecked?: boolean}>`
     width: 26px;
     left: 4px;
     bottom: 4px;
-    border-radius: 4px;
+    border-radius: 13px;
     background-color: ${(props) =>
-      !props.$ischecked ? 'var(--bg_icon)' : 'var(--color_inside-accent)'};
+      !props.$ischecked ? '#222' : '#222'}; /* Modified line */
     -webkit-transition: 0.4s;
     transition: 0.4s;
     ${(props) => (props.$ischecked ? 'transform: translateX(26px)' : '')};

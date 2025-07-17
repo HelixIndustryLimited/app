@@ -21,28 +21,35 @@ const Container = styled.div`
   position: absolute;
   right: 15px;
   top: 0px;
-  font-size: 18px;
+  font-size: 16px;
   pointer-events: none;
-  font-weight: 400;
+  font-weight: 600;
+  font-family: "QuickSand";
 `;
 
 const KeyboardTitle = styled.label`
   pointer-events: all;
   display: inline-block;
   background: var(--color_accent);
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
-  font-size: 18px;
+  border-radius: 6px;
+  font-size: 16px;
   text-transform: uppercase;
-  color: var(--color_inside-accent);
-  padding: 1px 10px;
-  margin-right: 10px;
+  color: #151412;
+  letter-spacing: 1px;
+  padding: 1px 15px;
+  margin-right: 0px;
   border: solid 1px var(--bg_control);
-  border-top: none;
   cursor: pointer;
-  transition: all 0.1s ease-out;
+  transition: transform 0.2s ease-in;
+  .inner-content {
+    display: inline-block;
+    transition: transform 0.2s ease-in;
+  }
   &:hover {
-    filter: brightness(0.7);
+    transform: scale(1.05);
+    .inner-content {
+      transform: scale(0.9523);
+    }
   }
 `;
 const KeyboardList = styled.ul<{$show: boolean}>`
@@ -53,7 +60,7 @@ const KeyboardList = styled.ul<{$show: boolean}>`
   background-color: var(--bg_menu);
   margin: 0;
   margin-top: 5px;
-  right: 10px;
+  right: 0px;
   position: absolute;
   pointer-events: ${(props) => (props.$show ? 'all' : 'none')};
   transition: all 0.2s ease-out;
@@ -67,6 +74,9 @@ const KeyboardButton = styled.button<{$selected?: boolean}>`
   text-align: center;
   outline: none;
   font-variant-numeric: tabular-nums;
+  font-family: "QuickSand";
+  font-size: 14px;
+  font-weight:600;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -76,7 +86,7 @@ const KeyboardButton = styled.button<{$selected?: boolean}>`
     props.$selected ? 'var(--bg_icon-highlighted)' : 'transparent'};
   color: ${(props) =>
     props.$selected
-      ? 'var(--color_icon_highlighted)'
+      ? '#555'
       : 'var(--color_label-highlighted)'};
   cursor: pointer;
   text-align: left;
@@ -177,15 +187,17 @@ export const Badge = () => {
     <>
       <Container>
         <KeyboardTitle onClick={() => setShowList(!showList)}>
-          {selectedDefinition.name}
-          <FontAwesomeIcon
-            icon={faAngleDown}
-            style={{
-              transform: showList ? 'rotate(180deg)' : '',
-              transition: 'transform 0.2s ease-out',
-              marginLeft: '5px',
-            }}
-          />
+          <span className="inner-content">
+            {selectedDefinition.name}
+            <FontAwesomeIcon
+              icon={faAngleDown}
+              style={{
+                transform: showList ? 'rotate(180deg)' : '',
+                transition: 'transform 0.2s ease-out',
+                marginLeft: '5px',
+              }}
+            />
+          </span>
         </KeyboardTitle>
         <KeyboardSelectors
           show={showList}

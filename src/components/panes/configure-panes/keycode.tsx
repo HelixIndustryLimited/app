@@ -69,10 +69,18 @@ const Keycode = styled(Button)<{disabled: boolean}>`
   box-shadow: none;
   position: relative;
   border-radius: 10px;
+  transition: background-color 0.5s ease, transform 0.1s ease-out, border-color 0.1s ease-out;
+
   &:hover {
     border-color: var(--color_accent);
     transform: translate3d(0, -4px, 0);
   }
+
+  &:active {
+    background-color: var(--color_accent);
+    transition: background-color 0s;
+  }
+
   ${(props: any) => props.disabled && `cursor:not-allowed;filter:opacity(50%);`}
 `;
 
