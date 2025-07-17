@@ -118,10 +118,10 @@ html[data-theme-mode='light'] {
   height: 100%;
 }
 
-@font-face {
+/* @font-face {
   font-family: OpenCherry;
   src: url(/fonts/OpenCherry-Regular.otf) format('opentype');
-}
+} */
 
 @keyframes border-glow {
   0% {

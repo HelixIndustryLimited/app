@@ -129,7 +129,7 @@ export const Settings = () => {
   
   return (
     <>
-      <Pane>
+      <Pane style={{paddingTop: '54px', boxSizing: 'border-box'}}>
         <Grid style={{overflow: 'hidden'}}>
         <MenuCell style={{pointerEvents: 'all', borderTop: 'none'}}>
           {/* <MenuContainer>

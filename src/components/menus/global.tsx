@@ -7,15 +7,22 @@ const Container = styled.div`
   width: 100vw;
   height: 30px;
   padding: 12px 0;
-  border-bottom: 1px solid var(--border_color_cell);
+  border-bottom: 1px solid #404040ff;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
 const GlobalContainer = styled(Container)`
-  background: var(--bg_outside-accent);
+  background: rgba(34, 34, 34, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   column-gap: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
 `;
 
 export const UnconnectedGlobalMenu = () => {

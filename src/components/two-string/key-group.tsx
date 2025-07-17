@@ -21,6 +21,7 @@ import {KeyGroupProps, KeysKeys} from 'src/types/keyboard-rendering';
 import {getRGB} from 'src/utils/color-math';
 import {Color} from 'three';
 import {useSkipFontCheck} from 'src/utils/use-skip-font-check';
+import { KeyColor, KeyColorType } from '@the-via/reader';
 
 const KeyGroupContainer = styled.div<{height: number; width: number}>`
   position: absolute;
@@ -45,15 +46,24 @@ const getRGBArray = (keyColors: number[][]) => {
   });
 };
 
+const customKeycapTheme: Record<KeyColorType, KeyColor> = {
+  [KeyColorType.Alpha]: { c: '#131214ff', t: '#ddd' },
+  [KeyColorType.Mod]: { c: '#131214ff', t: '#ddd' },
+  [KeyColorType.Accent]: { c: '#131214ff', t: '#ae8d4bff' },
+  // [KeyColorType.AlphaMod]: { c: '#2E2E2E', t: '#FFFFFF' },
+  // [KeyColorType.ModAlpha]: { c: '#4A4A4A', t: '#FFFFFF' },
+  // [KeyColorType.Short]: { c: '#2E2E2E', t: '#FFFFFF' },
+  // [KeyColorType.Off]: { c: '#2E2E2E', t: '#FFFFFF' },
+};
+
 export const KeyGroup: React.FC<KeyGroupProps<React.MouseEvent>> = (props) => {
   const dispatch = useAppDispatch();
   const selectedKey = useAppSelector(getSelectedKey);
-  const selectedTheme = useAppSelector(getSelectedTheme);
   const macroExpressions = useAppSelector(getExpressions);
   const skipFontCheck = useSkipFontCheck();
   const keyColorPalette = props.keyColors
     ? getRGBArray(props.keyColors)
-    : selectedTheme;
+    : customKeycapTheme;
   const {basicKeyToByte, byteToKey} = useAppSelector(getBasicKeyToByte);
   const macros = useAppSelector((state) => state.macros);
   const {keys, selectedKey: externalSelectedKey} = props;

@@ -378,7 +378,7 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
               : selected
               ? '.75s infinite alternate select-glow'
               : '',
-            background: getDarkenedColor(props.color.c, 0.4),
+            background: getDarkenedColor(props.color.c, 1), //keycap外面的颜色
             transform: `perspective(100px) translateZ(${keycapZ}px)`,
             borderRadius: 7,
             width:
@@ -398,7 +398,7 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
           <CanvasContainer
             style={{
               borderRadius: 4,
-              background: props.color.c,
+              background: props.color.c,  //keycap里面的颜色
               height: '100%',
             }}
           >
@@ -421,8 +421,7 @@ const GlowContainer = styled.div<{$selected: boolean}>`
   box-sizing: border-box;
   padding: 2px 6px 10px 6px;
   transition: transform 0.2s ease-out, border 0.2s ease-out;
-  box-shadow: inset -1px -1px 0 #111,
-    inset 0px 1px 0 #36342e;
+  box-shadow: none;
   animation: ${(p) =>
     p.$selected ? '.75s infinite alternate select-glow' : 'initial'};
   &:hover {

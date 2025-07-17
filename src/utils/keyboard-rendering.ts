@@ -26,11 +26,11 @@ import {
 
 export const CSSVarObject = {
   keyWidth: 52,
-  keyXSpacing: 2,
+  keyXSpacing: 4,
   keyHeight: 54,
-  keyYSpacing: 2,
-  keyXPos: 52 + 2,
-  keyYPos: 54 + 2,
+  keyYSpacing: 4,
+  keyXPos: 52 + 4,
+  keyYPos: 54 + 4,
   faceXPadding: [6, 6],
   faceYPadding: [2, 10],
   insideBorder: 10,

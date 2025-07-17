@@ -20,7 +20,7 @@ import {isElectron} from 'src/utils/running-context';
 const Container = styled.div`
   position: absolute;
   right: 15px;
-  top: 0px;
+  top: 20px;
   font-size: 16px;
   pointer-events: none;
   font-weight: 600;

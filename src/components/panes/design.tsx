@@ -83,6 +83,8 @@ const DesignPane = styled(Pane)`
   max-width: 100vw;
   grid-template-columns: 100vw;
   grid-template-rows: min-content;
+  padding-top: 54px;
+  box-sizing: border-box;
 `;
 
 const UploadIcon = styled.div`

@@ -26,10 +26,12 @@
   gap: 0.5rem; /* Dock 项目之间的间距 */
   padding: 0.5rem;
   border-radius: 1rem; /* 圆角 */
-  border: 1px solid #222;
+  border: 1px solid #404040ff;
   /* 使用 CSS 变量来接收来自 props 的高度 */
   height: var(--panel-height, 68px); 
-  background-color: transparent;
+  background-color: #2222222c;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 
@@ -80,8 +82,8 @@
   */
   transform: translateX(-50%);
   z-index: 1001;
-  background-color: #151412;
-  border: 1px solid #222;
+  background-color: #21212163;
+  border: 1px solid #404040ff;
   border-radius: 0.375rem;
   padding: 0.125rem 0.5rem;
   font-size: 0.75rem;

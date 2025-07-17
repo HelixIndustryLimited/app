@@ -17,6 +17,8 @@ const OuterCase = styled.div<{
   background: ${(props) => props.background};
   width: ${(props) => props.width}px;
   height: ${(props) => props.height}px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 `;
 const InnerCase = styled.div<{
   background: string;
@@ -29,13 +31,15 @@ const InnerCase = styled.div<{
   position: absolute;
   width: ${(props) => props.width}px;
   height: ${(props) => props.height}px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 `;
 
 export const CaseInsideBorder = 10;
 
 export const Case = React.memo((props: {width: number; height: number}) => {
   const theme = useAppSelector(getSelectedTheme);
-  const customColor = '#171717';
+  const customColor = 'rgba(16, 16, 16, 0.5)';
   const outsideColor = useMemo(() => theme[KeyColorType.Accent].c, [theme]);
   const properWidth =
     props.width * CSSVarObject.keyXPos - CSSVarObject.keyXSpacing;
@@ -59,10 +63,10 @@ export const Case = React.memo((props: {width: number; height: number}) => {
         height={outsideHeight}
         style={{
           borderRadius: 14,
-          boxShadow: 'var(--box-shadow-keyboard)',
+          // boxShadow: '#2222222b',
         }}
       ></OuterCase>
-      <InnerCase
+      {/* <InnerCase
         background={customColor}
         width={insideWidth}
         height={insideHeight}
@@ -71,7 +75,7 @@ export const Case = React.memo((props: {width: number; height: number}) => {
            ${insideHeight - properHeight}px)`,
           borderRadius: 8,
         }}
-      ></InnerCase>
+      ></InnerCase> */}
     </CaseGroup>
   );
 }, shallowEqual);

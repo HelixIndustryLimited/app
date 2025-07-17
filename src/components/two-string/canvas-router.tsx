@@ -24,25 +24,9 @@ import {
 import {OVERRIDE_HID_CHECK} from 'src/utils/override';
 import styled from 'styled-components';
 import {getDarkenedColor} from 'src/utils/color-math';
+import DarkVeil from '../DarkVeil/DarkVeil';
 
-const KeyboardBG = styled.div<{
-  onClick: () => void;
-  $color: string;
-  $visible: boolean;
-}>`
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: linear-gradient(
-    to bottom, 
-    #151412 0%,       /* 顶部黑色 */
-    #151412 30%,      /* 30% 位置保持黑色 */
-rgb(45, 40, 38) 100% /* 从 30% 开始渐变到灰色 */
-  );
-  opacity: ${(props) => (props.$visible ? 1 : 0)};
-`;
+
 
 const KeyboardRouteGroup = styled.div<{
   $position: number;
@@ -105,7 +89,7 @@ export const CanvasRouter = () => {
     <>
       <div
         style={{
-          height: 500,
+          height: 580,
           width: '100%',
           top: 0,
           transform: hideCanvasScene
@@ -119,6 +103,7 @@ export const CanvasRouter = () => {
           overflow: 'visible',
           zIndex: 2,
           visibility: hideCanvasScene && !hideTerrainBG ? 'hidden' : 'visible',
+          // paddingTop: '54px',
         }}
         onClick={(evt) => {
           if ((evt.target as any).nodeName !== 'CANVAS')
@@ -128,11 +113,7 @@ export const CanvasRouter = () => {
       >
         {hideCanvasScene ? null : (
           <>
-            <KeyboardBG
-              onClick={terrainOnClick}
-              $color={accentColor}
-              $visible={!hideTerrainBG}
-            />
+            <DarkVeil />
             <KeyboardGroup
               containerDimensions={containerDimensions}
               configureKeyboardIsSelectable={configureKeyboardIsSelectable}
@@ -179,7 +160,7 @@ const KeyboardGroupContainer = styled.div`
   background: linear-gradient(90deg, red, blue);
   width: max-content;
   position: absolute;
-  top: 0;
+  top: 25px;
   left: 0;
 `;
 const KeyboardGroup = React.memo((props: any) => {
