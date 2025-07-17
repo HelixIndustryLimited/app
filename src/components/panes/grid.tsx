@@ -112,7 +112,7 @@ export const IndentedControlRow = styled(ControlRow)`
 
 export const Label = styled.label`
   color: #bbb;
-  font-family: 'GothamRounded-Light', sans-serif;
+  font-family: "Lexend";
   font-weight: 300;
   font-size: 16px;
 `;

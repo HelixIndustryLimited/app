@@ -3,9 +3,8 @@ Explicitly import the missing arrows.
 See https://stackoverflow.com/questions/40822458/styled-unicode-arrows-not-showing-up-with-google-fonts-web-font
  */
 @import url('https://fonts.googleapis.com/css?family=Fira+Sans');
-@import url('https://fonts.googleapis.com/css?family=Fira+Sans&text=%E2%86%90|%E2%86%92');
-@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Varela+Round&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=NTR&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 
 html,
@@ -118,18 +117,6 @@ html[data-theme-mode='light'] {
   flex-direction: column;
   height: 100%;
 }
-@font-face {
-  font-family: GothamRoundedBold;
-  src: url(/fonts/GothamRoundedBold_21016.ttf) format('opentype');
-}
-@font-face {
-  font-family: GothamRounded;
-  src: url(/fonts/GothamRoundedBook_21018.ttf) format('opentype');
-}
-@font-face {
-  font-family: Symbola;
-  src: url(/fonts/Symbola.ttf) format('opentype');
-}
 
 @font-face {
   font-family: OpenCherry;
@@ -181,4 +168,5 @@ html[data-theme-mode='light'] {
   color: #bbb !important;
   font-size: 16px !important;
   font-weight: 300 !important;
+  font-family: "Manrope" !important;
 }
