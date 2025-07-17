@@ -321,7 +321,7 @@ const ConfigureGrid = () => {
       >
         <div style={{pointerEvents: 'all'}}>
           <LayerControl />
-          <Badge style={{position: 'relative', top: '10px'}} />
+          <Badge />
         </div>
       </ConfigureFlexCell>
       <Grid style={{pointerEvents: 'none'}}>

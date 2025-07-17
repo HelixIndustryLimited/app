@@ -7,14 +7,14 @@ const Container = styled.div`
   width: 100vw;
   height: 30px;
   padding: 12px 0;
-  border-bottom: 1px solid #404040ff;
+  border-bottom: 1px solid rgb(50, 50, 50);
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
 const GlobalContainer = styled(Container)`
-  background: rgba(34, 34, 34, 0.3);
+  background: rgba(16, 16, 16, 0.6);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   column-gap: 20px;
