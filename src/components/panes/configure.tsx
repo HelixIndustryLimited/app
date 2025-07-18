@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {faPlus, faKeyboard, faStethoscope, faBrush, faGear, faStar, faBagShopping, faSignature, faPlug} from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
-import ChippyLoader from '../chippy-loader';
-import LoadingText from '../loading-text';
+import DotGrid from '../DotGrid/DotGrid';
 import {CenterPane, ConfigureBasePane} from './pane';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useLocation} from 'wouter';
@@ -25,7 +24,7 @@ import * as RotaryEncoder from './configure-panes/custom/satisfaction75';
 import {makeCustomMenus} from './configure-panes/custom/menu-generator';
 import {LayerControl} from './configure-panes/layer-control';
 import {Badge} from './configure-panes/badge';
-import {useAppSelector} from 'src/store/hooks';
+import {useAppSelector, useAppDispatch} from 'src/store/hooks';
 import {getSelectedDefinition} from 'src/store/definitionsSlice';
 import {
   clearSelectedKey,
@@ -39,9 +38,8 @@ import {getV3MenuComponents} from 'src/store/menusSlice';
 import {getIsMacroFeatureSupported} from 'src/store/macrosSlice';
 import {getConnectedDevices, getSupportedIds} from 'src/store/devicesSlice';
 import {isElectron} from 'src/utils/running-context';
-import {useAppDispatch} from 'src/store/hooks';
 import {MenuTooltip} from '../inputs/tooltip';
-import {getRenderMode, getSelectedTheme} from 'src/store/settingsSlice';
+import {getRenderMode} from 'src/store/settingsSlice';
 
 const MenuContainer = styled.div`
   padding: 15px 10px 20px 10px;
@@ -148,7 +146,6 @@ const Loader: React.FC<{
 }> = (props) => {
   const {loadProgress, selectedDefinition} = props;
   const dispatch = useAppDispatch();
-  const theme = useAppSelector(getSelectedTheme);
 
   const connectedDevices = useAppSelector(getConnectedDevices);
   const supportedIds = useAppSelector(getSupportedIds);
@@ -167,7 +164,19 @@ const Loader: React.FC<{
   }, [selectedDefinition]);
   return (
     <LoaderPane>
-      {<ChippyLoader theme={theme} progress={loadProgress || null} />}
+      <div style={{width: '100%', height: '100%', position: 'absolute', top: 0, left: 0, zIndex: 0}}>
+        <DotGrid
+          dotSize={5}
+          gap={15}
+          baseColor="#29282c"
+          activeColor="#5e35c6"
+          proximity={120}
+          shockRadius={150}
+          shockStrength={5}
+          resistance={750}
+          returnDuration={2}
+        />
+      </div>
       {(showButton || noConnectedDevices) && !noSupportedIds && !isElectron ? (
         <button
           onClick={() => dispatch(reloadConnectedDevices())}
@@ -183,6 +192,7 @@ const Loader: React.FC<{
             cursor: 'pointer',
             transition: 'padding 0.3s ease',
             fontFamily: 'Lexend',
+            zIndex: 1,
           }}
           onMouseEnter={(e) => {
             (e.target as HTMLButtonElement).style.padding = '18px 28px';
@@ -199,9 +209,7 @@ const Loader: React.FC<{
           Authorize device
           <FontAwesomeIcon style={{marginLeft: '10px', transition: 'color 0.3s ease'}} icon={faPlug} />
         </button>
-      ) : (
-        <LoadingText isSearching={!selectedDefinition} />
-      )}
+      ) : null}
     </LoaderPane>
   );
 };
