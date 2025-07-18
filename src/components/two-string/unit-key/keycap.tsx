@@ -249,9 +249,9 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
     DisplayMode.Test === mode
       ? pressedState === KeycapState.Unpressed
         ? wasPressed
-          ? '#7b27d6'
+          ? '#6d58beff'
           : 'lightgrey'
-        : '#39a380'
+        : '#45c69bff'
       : pressedState === KeycapState.Unpressed
       ? 'lightgrey'
       : 'lightgrey';

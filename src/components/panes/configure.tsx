@@ -182,11 +182,12 @@ const Loader: React.FC<{
             borderRadius: '20px',
             cursor: 'pointer',
             transition: 'padding 0.3s ease',
+            fontFamily: 'Lexend',
           }}
           onMouseEnter={(e) => {
             (e.target as HTMLButtonElement).style.padding = '18px 28px';
             const icon = (e.target as HTMLButtonElement).querySelector('svg');
-            if (icon) icon.style.color = '#4cc194ff';
+            if (icon) icon.style.color = '#545454ff';
           }}
           onMouseLeave={(e) => {
             (e.target as HTMLButtonElement).style.padding = '16px 24px';

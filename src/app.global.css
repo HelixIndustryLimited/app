@@ -123,6 +123,11 @@ html[data-theme-mode='light'] {
   src: url(/fonts/OpenCherry-Regular.otf) format('opentype');
 } */
 
+/* @font-face {
+  font-family: OpenCherry;
+  src: url(/fonts/OpenCherry-Regular.woff2) format('woff2');
+} */
+
 @keyframes border-glow {
   0% {
     border: 2px dashed var(--color_accent);
@@ -168,5 +173,5 @@ html[data-theme-mode='light'] {
   color: #bbb !important;
   font-size: 16px !important;
   font-weight: 300 !important;
-  font-family: "Manrope" !important;
+  font-family: "Lexend" !important;
 }

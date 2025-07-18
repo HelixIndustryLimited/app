@@ -86,7 +86,8 @@
   border: 1px solid #404040ff;
   border-radius: 0.375rem;
   padding: 0.125rem 0.5rem;
-  font-size: 0.75rem;
+  font-size: 12px;
+  font-family: 'Lexend';
   color: #fff;
   white-space: nowrap;
   pointer-events: none; /* 确保标签不会干扰鼠标事件 */
