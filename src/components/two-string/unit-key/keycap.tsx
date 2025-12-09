@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {shallowEqual} from 'react-redux';
 import {TestKeyState} from 'src/types/types';
-import {getDarkenedColor} from 'src/utils/color-math';
+import {getColorByte, getDarkenedColor} from 'src/utils/color-math';
 import {CSSVarObject} from 'src/utils/keyboard-rendering';
 import styled from 'styled-components';
 import {Keycap2DTooltip} from '../../inputs/tooltip';
@@ -258,6 +258,11 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
   const keycapOpacity =
     pressedState === KeycapState.Unpressed ? (wasPressed ? 0.5 : 0) : 0.6;
 
+  const [r, g, b] = getColorByte(props.color.c);
+  // iOS 16 liquid glass style variables
+  const glassBgOuter = `rgba(${r}, ${g}, ${b}, 0.35)`;
+  const glassShadow = `0 8px 32px 0 rgba(31, 38, 135, 0.15)`;
+
   const [onClick, onPointerOver, onPointerOut, onPointerDown] = useMemo(() => {
     const noop = () => {};
     return disabled
@@ -378,7 +383,8 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
               : selected
               ? '.75s infinite alternate select-glow'
               : '',
-            background: getDarkenedColor(props.color.c, 1), //keycap外面的颜色
+            background: glassBgOuter, //keycap外面的颜色
+            boxShadow: glassShadow,
             transform: `perspective(100px) translateZ(${keycapZ}px)`,
             borderRadius: 7,
             width:
@@ -398,7 +404,7 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
           <CanvasContainer
             style={{
               borderRadius: 4,
-              background: props.color.c,  //keycap里面的颜色
+              background: 'transparent',  //keycap里面的颜色
               height: '100%',
             }}
           >
