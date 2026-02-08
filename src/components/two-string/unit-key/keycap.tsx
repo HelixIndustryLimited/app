@@ -1,12 +1,12 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
-import {shallowEqual} from 'react-redux';
-import {TestKeyState} from 'src/types/types';
-import {getColorByte, getDarkenedColor} from 'src/utils/color-math';
-import {CSSVarObject} from 'src/utils/keyboard-rendering';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { shallowEqual } from 'react-redux';
+import { TestKeyState } from 'src/types/types';
+import { getColorByte, getDarkenedColor } from 'src/utils/color-math';
+import { CSSVarObject } from 'src/utils/keyboard-rendering';
 import styled from 'styled-components';
-import {Keycap2DTooltip} from '../../inputs/tooltip';
-import {ComboKeycap} from './combo-keycap';
-import {EncoderKey} from './encoder';
+import { Keycap2DTooltip } from '../../inputs/tooltip';
+import { ComboKeycap } from './combo-keycap';
+import { EncoderKey } from './encoder';
 import {
   CanvasContainer,
   KeycapContainer,
@@ -29,8 +29,8 @@ const getMacroData = ({
   label && label.length > 15
     ? label
     : macroExpression && macroExpression.length
-    ? macroExpression
-    : null;
+      ? macroExpression
+      : null;
 
 const paintDebugLines = (canvas: HTMLCanvasElement) => {
   const context = canvas.getContext('2d');
@@ -68,10 +68,10 @@ const paintKeycapLabel = (
   const fontFamily =
     'Fira Sans, Arial Rounded MT, Arial Rounded MT Bold, Arial';
   // Margins from face edge to where text is drawn
-  const topLabelMargin = {x: 4, y: 4};
-  const bottomLabelMargin = {x: 4, y: 4};
-  const centerLabelMargin = {x: 3, y: 0};
-  const singleLabelMargin = {x: 4, y: 4};
+  const topLabelMargin = { x: 4, y: 4 };
+  const bottomLabelMargin = { x: 4, y: 4 };
+  const centerLabelMargin = { x: 3, y: 0 };
+  const singleLabelMargin = { x: 4, y: 4 };
 
   // Define a clipping path for the top face, so text is not drawn on the side.
   context.beginPath();
@@ -238,8 +238,8 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
         ? KeycapState.Pressed
         : KeycapState.Unpressed
       : hovered || selected
-      ? KeycapState.Pressed
-      : KeycapState.Unpressed;
+        ? KeycapState.Pressed
+        : KeycapState.Unpressed;
   const [keycapZ] =
     pressedState === KeycapState.Pressed
       ? [zDown, rotation[2]]
@@ -249,26 +249,26 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
     DisplayMode.Test === mode
       ? pressedState === KeycapState.Unpressed
         ? wasPressed
-          ? '#6d58beff'
+          ? '#100b1cff'
           : 'lightgrey'
-        : '#45c69bff'
+        : '#6441beff'
       : pressedState === KeycapState.Unpressed
-      ? 'lightgrey'
-      : 'lightgrey';
+        ? 'lightgrey'
+        : 'lightgrey';
   const keycapOpacity =
-    pressedState === KeycapState.Unpressed ? (wasPressed ? 0.5 : 0) : 0.6;
+    pressedState === KeycapState.Unpressed ? (wasPressed ? 0.75 : 0) : 0.6;
 
   const [r, g, b] = getColorByte(props.color.c);
   // iOS 16 liquid glass style variables
-  const glassBgOuter = `rgba(${r}, ${g}, ${b}, 0.35)`;
-  const glassShadow = `0 8px 32px 0 rgba(31, 38, 135, 0.15)`;
+  const glassBgOuter = `rgba(${r}, ${g}, ${b}, 0.57)`;
+  const glassShadow = `0 8px 32px 0 rgba(192, 192, 192, 0.12)`;
 
   const [onClick, onPointerOver, onPointerOut, onPointerDown] = useMemo(() => {
-    const noop = () => {};
+    const noop = () => { };
     return disabled
       ? [noop, noop, noop, noop]
       : props.mode === DisplayMode.ConfigureColors
-      ? [
+        ? [
           noop,
           (evt: React.MouseEvent) => {
             if (props.onPointerOver) {
@@ -282,7 +282,7 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
             }
           },
         ]
-      : [
+        : [
           (evt: React.MouseEvent) => props.onClick(evt, idx),
           (evt: React.MouseEvent) => {
             if (props.onPointerOver) {
@@ -311,15 +311,13 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
       onClick={onClick}
       size={textureWidth * CSSVarObject.keyWidth}
       style={{
-        transform: `translate(${
-          props.position[0] -
+        transform: `translate(${props.position[0] -
           (CSSVarObject.keyWidth * textureWidth - CSSVarObject.keyWidth) / 2
-        }px,${
-          (textureWidth * (CSSVarObject.keyHeight - CSSVarObject.keyWidth)) /
-            2 +
+          }px,${(textureWidth * (CSSVarObject.keyHeight - CSSVarObject.keyWidth)) /
+          2 +
           props.position[1] -
           (CSSVarObject.keyHeight * textureHeight - CSSVarObject.keyHeight) / 2
-        }px) rotate(${-props.rotation[2]}rad)`,
+          }px) rotate(${-props.rotation[2]}rad)`,
         borderRadius: 3,
         color: props.color.c,
       }}
@@ -338,15 +336,13 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
       macroData={macroData}
       overflowsTexture={overflowsTexture}
       style={{
-        transform: `translate(${
-          CSSVarObject.keyWidth / 2 +
+        transform: `translate(${CSSVarObject.keyWidth / 2 +
           props.position[0] -
           (CSSVarObject.keyXPos * textureWidth - CSSVarObject.keyXSpacing) / 2
-        }px,${
-          CSSVarObject.keyHeight / 2 +
+          }px,${CSSVarObject.keyHeight / 2 +
           props.position[1] -
           (CSSVarObject.keyYPos * textureHeight - CSSVarObject.keyYSpacing) / 2
-        }px) rotate(${-props.rotation[2]}rad)`,
+          }px) rotate(${-props.rotation[2]}rad)`,
         width: textureWidth * CSSVarObject.keyXPos - CSSVarObject.keyXSpacing,
         height: textureHeight * CSSVarObject.keyYPos - CSSVarObject.keyYSpacing,
       }}
@@ -359,16 +355,14 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
         onPointerOver={onPointerOver}
         onPointerOut={onPointerOut}
         style={{
-          transform: `translate(${
-            CSSVarObject.keyWidth / 2 +
+          transform: `translate(${CSSVarObject.keyWidth / 2 +
             props.position[0] -
             (CSSVarObject.keyXPos * textureWidth - CSSVarObject.keyXSpacing) / 2
-          }px,${
-            CSSVarObject.keyHeight / 2 +
+            }px,${CSSVarObject.keyHeight / 2 +
             props.position[1] -
             (CSSVarObject.keyYPos * textureHeight - CSSVarObject.keyYSpacing) /
-              2
-          }px) rotate(${-props.rotation[2]}rad)`,
+            2
+            }px) rotate(${-props.rotation[2]}rad)`,
           width: textureWidth * CSSVarObject.keyXPos - CSSVarObject.keyXSpacing,
           height:
             textureHeight * CSSVarObject.keyYPos - CSSVarObject.keyYSpacing,
@@ -381,8 +375,8 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
             animation: disabled
               ? 'initial' // This prevents the hover animation from firing when the keycap can't be interacted with
               : selected
-              ? '.75s infinite alternate select-glow'
-              : '',
+                ? '.75s infinite alternate select-glow'
+                : '',
             background: glassBgOuter, //keycap外面的颜色
             boxShadow: glassShadow,
             transform: `perspective(100px) translateZ(${keycapZ}px)`,
@@ -423,7 +417,7 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
   );
 }, shallowEqual);
 
-const GlowContainer = styled.div<{$selected: boolean}>`
+const GlowContainer = styled.div<{ $selected: boolean }>`
   box-sizing: border-box;
   padding: 2px 6px 10px 6px;
   transition: transform 0.2s ease-out, border 0.2s ease-out;
@@ -433,8 +427,8 @@ const GlowContainer = styled.div<{$selected: boolean}>`
   &:hover {
     transform: perspective(100px) translateZ(-5px);
     animation: 0.5s 1 forwards select-glow;
-    border: 2px solid rgb(50, 189, 129); /* 悬停时显示边框，颜色可自定义 */
+    border: 2px solid #9982a8; /* 悬停时显示边框，颜色可自定义 */
   }
   // 选中状态时固定显示边框（与悬停颜色一致）
-  ${(p) => p.$selected && `border: 2px solid rgb(110, 50, 189);`}
+  ${(p) => p.$selected && `border: 2px solid #e04488ff;`}
 `;

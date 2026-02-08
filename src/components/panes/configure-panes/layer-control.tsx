@@ -1,6 +1,6 @@
-import {useMemo} from 'react';
-import {useDispatch} from 'react-redux';
-import {useAppSelector} from 'src/store/hooks';
+import { useMemo } from 'react';
+import { useDispatch } from 'react-redux';
+import { useAppSelector } from 'src/store/hooks';
 import {
   getNumberOfLayers,
   getSelectedLayerIndex,
@@ -22,12 +22,12 @@ const Label = styled.label`
   color: var(--color_label-highlighted);
   margin-right: 6px;
 `;
-const LayerButton = styled.button<{$selected?: boolean}>`
+const LayerButton = styled.button<{ $selected?: boolean }>`
   outline: none;
   font-variant-numeric: tabular-nums;
   border: none;
   background: ${(props) =>
-    props.$selected ? 'var(--color_accent)' : 'transparent'};
+    props.$selected ? 'rgb(16, 16, 16)' : 'transparent'};
   color: ${(props) =>
     props.$selected
       ? 'var(--color_inside-accent)'
@@ -39,9 +39,9 @@ const LayerButton = styled.button<{$selected?: boolean}>`
   border-radius: 5px;
   &:hover {
     border: none;
-    background: ${(props) => (props.$selected ? 'auto' : 'var(--bg_menu)')};
+    background: ${(props) => (props.$selected ? 'rgb(16, 16, 16)' : 'rgb(32, 32, 32, 0.4)')};
     color: ${(props) =>
-      props.$selected ? 'auto' : 'var(--color_label-highlighted)'};
+    props.$selected ? 'var(--color_inside-accent)' : 'var(--color_label-highlighted)'};
   }
 `;
 

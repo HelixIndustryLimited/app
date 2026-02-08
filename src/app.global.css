@@ -11,10 +11,12 @@ html,
 body {
   height: 100%;
 }
+
 .configure-tooltip {
   font-size: 20px !important;
   background-color: rgba(255, 255, 255, 0.4);
 }
+
 body {
   position: relative;
   color: white;
@@ -26,10 +28,12 @@ body {
   padding: 0;
   user-select: none;
 }
+
 button {
   font-family: 'Fira Sans', Helvetica, Helvetica Neue, Arial, serif;
   font-weight: 300;
 }
+
 h2 {
   margin: 0;
   font-size: 2.25rem;
@@ -37,22 +41,27 @@ h2 {
   letter-spacing: -0.025em;
   color: #fff;
 }
+
 p {
   font-size: 24px;
 }
+
 li {
   list-style: none;
 }
+
 a {
   color: white;
   opacity: 0.75;
   text-decoration: none;
 }
+
 a:hover {
   opacity: 1;
   text-decoration: none;
   cursor: pointer;
 }
+
 :root {
   --color_error: #d15e5e;
   --color_light-grey: #d6d6d6;
@@ -89,6 +98,7 @@ html[data-theme-mode='dark'] {
   --bg_gradient: linear-gradient(var(--color_jet), var(--color_light-jet));
   --bg_control-disabled: transparent;
 }
+
 html[data-theme-mode='light'] {
   --color_label: var(--color_medium-grey);
   --color_label-highlighted: var(--color_light-jet);
@@ -105,10 +115,8 @@ html[data-theme-mode='light'] {
   --bg_outside-accent: var(--color_tinge-light);
   --bg_control-highlighted: var(--color_warm-white);
   --bg_control-disabled: transparent;
-  --bg_gradient: linear-gradient(
-    var(--color_tinge-light),
-    var(--color_warm-white)
-  );
+  --bg_gradient: linear-gradient(var(--color_tinge-light),
+      var(--color_warm-white));
 }
 
 #root {
@@ -129,31 +137,28 @@ html[data-theme-mode='light'] {
 } */
 
 @keyframes border-glow {
-  0% {
-    border: 2px dashed var(--color_accent);
-  }
-  50% {
-    border: 2px dashed var(--border_color_icon);
-  }
+
+  0%,
+  50%,
   100% {
     border: 2px dashed var(--color_accent);
   }
 }
+
 @keyframes roll {
   0% {
-    transform:  translate3d(-50px, 0px, 0) rotate(-30deg);
+    transform: translate3d(-50px, 0px, 0) rotate(-30deg);
   }
+
   100% {
-    transform:   translate3d(50px, 0px, 0) rotate(30deg);
+    transform: translate3d(50px, 0px, 0) rotate(30deg);
   }
 }
+
 @keyframes text-glow {
-  0% {
-    stroke: var(--color_accent);
-  }
-  50% {
-    stroke: var(--color_label);
-  }
+
+  0%,
+  50%,
   100% {
     stroke: var(--color_accent);
   }
@@ -161,10 +166,11 @@ html[data-theme-mode='light'] {
 
 @keyframes select-glow {
   0% {
-    filter: brightness(0.75);
+    filter: brightness(1);
   }
+
   100% {
-    filter: brightness(1.25);
+    filter: brightness(1.3);
   }
 }
 

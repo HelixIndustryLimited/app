@@ -1,8 +1,8 @@
-import {FC, useState, useEffect, useMemo} from 'react';
+import { FC, useState, useEffect, useMemo } from 'react';
 import styled from 'styled-components';
-import {Button} from '../../inputs/button';
-import {KeycodeModal} from '../../inputs/custom-keycode-modal';
-import {title, component} from '../../icons/keyboard';
+import { Button } from '../../inputs/button';
+import { KeycodeModal } from '../../inputs/custom-keycode-modal';
+import { title, component } from '../../icons/keyboard';
 import * as EncoderPane from './encoder';
 import {
   keycodeInMaster,
@@ -13,7 +13,7 @@ import {
   IKeycodeMenu,
   categoriesForKeycodeModule,
 } from '../../../utils/key';
-import {ErrorMessage} from '../../styled';
+import { ErrorMessage } from '../../styled';
 import {
   KeycodeType,
   getLightingDefinition,
@@ -21,14 +21,14 @@ import {
   isVIADefinitionV2,
   VIADefinitionV3,
 } from '@the-via/reader';
-import {OverflowCell, SubmenuOverflowCell, SubmenuRow} from '../grid';
-import {useAppDispatch, useAppSelector} from 'src/store/hooks';
+import { OverflowCell, SubmenuOverflowCell, SubmenuRow } from '../grid';
+import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import {
   getBasicKeyToByte,
   getSelectedDefinition,
   getSelectedKeyDefinitions,
 } from 'src/store/definitionsSlice';
-import {getSelectedConnectedDevice} from 'src/store/devicesSlice';
+import { getSelectedConnectedDevice } from 'src/store/devicesSlice';
 import {
   getSelectedKey,
   getSelectedKeymap,
@@ -43,7 +43,7 @@ import {
   enableGlobalHotKeys,
   getDisableFastRemap,
 } from 'src/store/settingsSlice';
-import {getNextKey} from 'src/utils/keyboard-rendering';
+import { getNextKey } from 'src/utils/keyboard-rendering';
 const KeycodeList = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, 64px);
@@ -56,7 +56,7 @@ const MenuContainer = styled.div`
   padding: 15px 20px 20px 10px;
 `;
 
-const Keycode = styled(Button)<{disabled: boolean}>`
+const Keycode = styled(Button) <{ disabled: boolean }>`
   width: 50px;
   height: 50px;
   line-height: 18px;
@@ -112,9 +112,9 @@ const KeycodeDesc = styled.div`
   bottom: 0;
   background: linear-gradient(
     to right, 
-    rgba(52, 112, 50, 0.89) 0%,       /* 左侧半透明紫色 */
-    rgba(111, 79, 184, 0.83) 15%,      /* 30% 位置保持半透明紫色 */
-    rgba(111, 79, 184, 0.0) 20%         /* 从 30% 开始渐变为完全透明 */
+    #6d58be 0%,       /* 左侧半透明紫色 */
+    #6d58be 15%,      /* 30% 位置保持半透明紫色 */
+    rgba(111, 79, 184, 0.0) 25%         /* 从 30% 开始渐变为完全透明 */
   );
   box-sizing: border-box;
   transition: opacity 0.2s ease-out;
@@ -162,7 +162,7 @@ export const KeycodePane: FC = () => {
   const selectedKey = useAppSelector(getSelectedKey);
   const disableFastRemap = useAppSelector(getDisableFastRemap);
   const selectedKeyDefinitions = useAppSelector(getSelectedKeyDefinitions);
-  const {basicKeyToByte} = useAppSelector(getBasicKeyToByte);
+  const { basicKeyToByte } = useAppSelector(getBasicKeyToByte);
   const macroCount = useAppSelector(getMacroCount);
 
   const KeycodeCategories = useMemo(
@@ -185,21 +185,21 @@ export const KeycodePane: FC = () => {
     if (isVIADefinitionV3(selectedDefinition)) {
       return getEnabledMenusV3(selectedDefinition);
     }
-    const {lighting, customKeycodes} = selectedDefinition;
-    const {keycodes} = getLightingDefinition(lighting);
+    const { lighting, customKeycodes } = selectedDefinition;
+    const { keycodes } = getLightingDefinition(lighting);
     return KeycodeCategories.filter(
       maybeFilter(
         keycodes === KeycodeType.QMK,
-        ({id}) => id !== 'qmk_lighting',
+        ({ id }) => id !== 'qmk_lighting',
       ),
     )
       .filter(
-        maybeFilter(keycodes === KeycodeType.WT, ({id}) => id !== 'lighting'),
+        maybeFilter(keycodes === KeycodeType.WT, ({ id }) => id !== 'lighting'),
       )
       .filter(
         maybeFilter(
           typeof customKeycodes !== 'undefined',
-          ({id}) => id !== 'custom',
+          ({ id }) => id !== 'custom',
         ),
       );
   };
@@ -228,7 +228,7 @@ export const KeycodePane: FC = () => {
   const renderCategories = () => {
     return (
       <MenuContainer>
-        {getEnabledMenus().map(({id, label}) => (
+        {getEnabledMenus().map(({ id, label }) => (
           <SubmenuRow
             $selected={id === selectedCategory}
             onClick={() => setSelectedCategory(id)}
@@ -287,7 +287,7 @@ export const KeycodePane: FC = () => {
   };
 
   const renderKeycode = (keycode: IKeycode, index: number) => {
-    const {code, title, name} = keycode;
+    const { code, title, name } = keycode;
     return (
       <Keycode
         key={code}
@@ -365,7 +365,7 @@ export const KeycodePane: FC = () => {
   };
 
   const selectedCategoryKeycodes = KeycodeCategories.find(
-    ({id}) => id === selectedCategory,
+    ({ id }) => id === selectedCategory,
   )?.keycodes as IKeycode[];
 
   return (

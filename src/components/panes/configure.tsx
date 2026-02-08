@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from 'react';
-import {faPlus, faKeyboard, faStethoscope, faBrush, faGear, faStar, faBagShopping, faSignature, faPlug} from '@fortawesome/free-solid-svg-icons';
+import React, { useState, useEffect } from 'react';
+import { faPlus, faKeyboard, faStethoscope, faBrush, faGear, faStar, faBagShopping, faSignature, faPlug } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
-import DotGrid from '../DotGrid/DotGrid';
-import {CenterPane, ConfigureBasePane} from './pane';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {useLocation} from 'wouter';
+import Grainient from '../grainient/grainient';
+import { CenterPane, ConfigureBasePane } from './pane';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useLocation } from 'wouter';
 import Dock from '../dock/dock';
 import {
   CustomFeaturesV2,
@@ -14,32 +14,32 @@ import {
   VIADefinitionV2,
   VIADefinitionV3,
 } from '@the-via/reader';
-import {Grid, Row, IconContainer, MenuCell, ConfigureFlexCell} from './grid';
+import { Grid, Row, IconContainer, MenuCell, ConfigureFlexCell } from './grid';
 import * as Keycode from './configure-panes/keycode';
 import * as Lighting from './configure-panes/lighting';
 import * as Macros from './configure-panes/macros';
 import * as SaveLoad from './configure-panes/save-load';
 import * as Layouts from './configure-panes/layouts';
 import * as RotaryEncoder from './configure-panes/custom/satisfaction75';
-import {makeCustomMenus} from './configure-panes/custom/menu-generator';
-import {LayerControl} from './configure-panes/layer-control';
-import {Badge} from './configure-panes/badge';
-import {useAppSelector, useAppDispatch} from 'src/store/hooks';
-import {getSelectedDefinition} from 'src/store/definitionsSlice';
+import { makeCustomMenus } from './configure-panes/custom/menu-generator';
+import { LayerControl } from './configure-panes/layer-control';
+import { Badge } from './configure-panes/badge';
+import { useAppSelector, useAppDispatch } from 'src/store/hooks';
+import { getSelectedDefinition } from 'src/store/definitionsSlice';
 import {
   clearSelectedKey,
   getLoadProgress,
   getNumberOfLayers,
   setConfigureKeyboardIsSelectable,
 } from 'src/store/keymapSlice';
-import {useDispatch} from 'react-redux';
-import {reloadConnectedDevices} from 'src/store/devicesThunks';
-import {getV3MenuComponents} from 'src/store/menusSlice';
-import {getIsMacroFeatureSupported} from 'src/store/macrosSlice';
-import {getConnectedDevices, getSupportedIds} from 'src/store/devicesSlice';
-import {isElectron} from 'src/utils/running-context';
-import {MenuTooltip} from '../inputs/tooltip';
-import {getRenderMode} from 'src/store/settingsSlice';
+import { useDispatch } from 'react-redux';
+import { reloadConnectedDevices } from 'src/store/devicesThunks';
+import { getV3MenuComponents } from 'src/store/menusSlice';
+import { getIsMacroFeatureSupported } from 'src/store/macrosSlice';
+import { getConnectedDevices, getSupportedIds } from 'src/store/devicesSlice';
+import { isElectron } from 'src/utils/running-context';
+import { MenuTooltip } from '../inputs/tooltip';
+import { getRenderMode } from 'src/store/settingsSlice';
 
 const MenuContainer = styled.div`
   padding: 15px 10px 20px 10px;
@@ -94,7 +94,7 @@ const filterInferredRows = (
   numberOfLayers: number,
   rows: typeof Rows,
 ): typeof Rows => {
-  const {layouts} = selectedDefinition;
+  const { layouts } = selectedDefinition;
   let removeList: typeof Rows = [];
   // LAYOUTS IS INFERRED, filter out if doesn't exist
   if (
@@ -123,8 +123,8 @@ const getRowsForKeyboardV2 = (
 ): typeof Rows => {
   let rows: typeof Rows = [Keycode, Layouts, Macros, SaveLoad];
   if (isVIADefinitionV2(selectedDefinition)) {
-    const {lighting, customFeatures} = selectedDefinition;
-    const {supportedLightingValues} = getLightingDefinition(lighting);
+    const { lighting, customFeatures } = selectedDefinition;
+    const { supportedLightingValues } = getLightingDefinition(lighting);
     if (supportedLightingValues.length !== 0) {
       rows = [...rows, Lighting];
     }
@@ -144,7 +144,7 @@ const Loader: React.FC<{
   loadProgress: number;
   selectedDefinition: VIADefinitionV2 | VIADefinitionV3 | null;
 }> = (props) => {
-  const {loadProgress, selectedDefinition} = props;
+  const { loadProgress, selectedDefinition } = props;
   const dispatch = useAppDispatch();
 
   const connectedDevices = useAppSelector(getConnectedDevices);
@@ -164,17 +164,29 @@ const Loader: React.FC<{
   }, [selectedDefinition]);
   return (
     <LoaderPane>
-      <div style={{width: '100%', height: '100%', position: 'absolute', top: 0, left: 0, zIndex: 0}}>
-        <DotGrid
-          dotSize={5}
-          gap={15}
-          baseColor="#29282c"
-          activeColor="#5e35c6"
-          proximity={120}
-          shockRadius={150}
-          shockStrength={5}
-          resistance={750}
-          returnDuration={2}
+      <div style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0, zIndex: 0 }}>
+        <Grainient
+          color1="#3f3f3f"
+          color2="#6643b6"
+          color3="#8f8784"
+          timeSpeed={0.28}
+          colorBalance={-0.1}
+          warpStrength={1.8}
+          warpFrequency={5}
+          warpSpeed={2}
+          warpAmplitude={50}
+          viewScale={1.5}
+          blendSoftness={0.05}
+          rotationAmount={500}
+          noiseScale={2}
+          grainAmount={0.07}
+          grainScale={2}
+          grainAnimated={false}
+          contrast={1.5}
+          gamma={1.7}
+          saturation={1}
+          centerX={0}
+          centerY={0}
         />
       </div>
       {(showButton || noConnectedDevices) && !noSupportedIds && !isElectron ? (
@@ -207,7 +219,7 @@ const Loader: React.FC<{
           }}
         >
           Authorize device
-          <FontAwesomeIcon style={{marginLeft: '10px', transition: 'color 0.3s ease'}} icon={faPlug} />
+          <FontAwesomeIcon style={{ marginLeft: '10px', transition: 'color 0.3s ease' }} icon={faPlug} />
         </button>
       ) : null}
     </LoaderPane>
@@ -247,25 +259,25 @@ export const ConfigurePane = () => {
   const [, setLocation] = useLocation();
 
   const dockItems = [
-    { 
-      icon: <FontAwesomeIcon icon={faKeyboard} size="lg" />, 
-      label: 'Configure', 
-      onClick: () => setLocation('/') 
+    {
+      icon: <FontAwesomeIcon icon={faKeyboard} size="lg" />,
+      label: 'Configure',
+      onClick: () => setLocation('/')
     },
-    { 
-      icon: <FontAwesomeIcon icon={faStethoscope} size="lg" />, 
-      label: 'Key Tester', 
-      onClick: () => setLocation('/test') 
+    {
+      icon: <FontAwesomeIcon icon={faStethoscope} size="lg" />,
+      label: 'Key Tester',
+      onClick: () => setLocation('/test')
     },
-    { 
-      icon: <FontAwesomeIcon icon={faBrush} size="lg" />, 
-      label: 'Design', 
-      onClick: () => setLocation('/design') 
+    {
+      icon: <FontAwesomeIcon icon={faBrush} size="lg" />,
+      label: 'Design',
+      onClick: () => setLocation('/design')
     },
-    { 
-      icon: <FontAwesomeIcon icon={faGear} size="lg" />, 
-      label: 'Settings', 
-      onClick: () => setLocation('/settings') 
+    {
+      icon: <FontAwesomeIcon icon={faGear} size="lg" />,
+      label: 'Settings',
+      onClick: () => setLocation('/settings')
     },
   ];
 
@@ -285,7 +297,7 @@ export const ConfigurePane = () => {
         </ConfigureBasePane>
       )}
       <DockContainer>
-        <Dock 
+        <Dock
           items={dockItems}
           panelHeight={40}
           baseItemSize={40}
@@ -328,16 +340,16 @@ const ConfigureGrid = () => {
           right: 0,
         }}
       >
-        <div style={{pointerEvents: 'all'}}>
+        <div style={{ pointerEvents: 'all' }}>
           <LayerControl />
           <Badge />
         </div>
       </ConfigureFlexCell>
-      <Grid style={{pointerEvents: 'none'}}>
-        <MenuCell style={{pointerEvents: 'all'}}>
+      <Grid style={{ pointerEvents: 'none' }}>
+        <MenuCell style={{ pointerEvents: 'all' }}>
           <MenuContainer>
             {(KeyboardRows || []).map(
-              ({Icon, Title}: {Icon: any; Title: string}, idx: number) => (
+              ({ Icon, Title }: { Icon: any; Title: string }, idx: number) => (
                 <Row
                   key={idx}
                   onClick={(_) => setRow(idx)}

@@ -1,13 +1,13 @@
-import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   getCustomDefinitions,
   getSelectedDefinition,
 } from 'src/store/definitionsSlice';
-import {useSize} from 'src/utils/use-size';
-import {useLocation} from 'wouter';
-import {ConfigureKeyboard, Design, Test} from '../n-links/keyboard';
-import {useAppDispatch, useAppSelector} from 'src/store/hooks';
-import {useProgress} from '@react-three/drei';
+import { useSize } from 'src/utils/use-size';
+import { useLocation } from 'wouter';
+import { ConfigureKeyboard, Design, Test } from '../n-links/keyboard';
+import { useAppDispatch, useAppSelector } from 'src/store/hooks';
+import { useProgress } from '@react-three/drei';
 import {
   getLoadProgress,
   updateSelectedKey,
@@ -15,16 +15,16 @@ import {
   clearSelectedKey,
 } from 'src/store/keymapSlice';
 import React from 'react';
-import {shallowEqual} from 'react-redux';
-import {DefinitionVersionMap, KeyColorType} from '@the-via/reader';
+import { shallowEqual } from 'react-redux';
+import { DefinitionVersionMap, KeyColorType } from '@the-via/reader';
 import {
   getDesignDefinitionVersion,
   getSelectedTheme,
 } from 'src/store/settingsSlice';
-import {OVERRIDE_HID_CHECK} from 'src/utils/override';
+import { OVERRIDE_HID_CHECK } from 'src/utils/override';
 import styled from 'styled-components';
-import {getDarkenedColor} from 'src/utils/color-math';
-import DarkVeil from '../DarkVeil/DarkVeil';
+import { getDarkenedColor } from 'src/utils/color-math';
+import Grainient from '../grainient/grainient';
 
 
 
@@ -47,7 +47,7 @@ export const CanvasRouter = () => {
   const body = useRef(document.body);
   const containerRef = useRef(null);
   const loadProgress = useAppSelector(getLoadProgress);
-  const {progress} = useProgress();
+  const { progress } = useProgress();
   const dispatch = useAppDispatch();
   const containerDimensions = useSize(containerRef);
   const dimensions = useSize(body);
@@ -96,8 +96,8 @@ export const CanvasRouter = () => {
             ? !hideTerrainBG
               ? 'translateY(-500px)'
               : !dimensions
-              ? ''
-              : `translateY(${-300 + dimensions!.height / 2}px)`
+                ? ''
+                : `translateY(${-300 + dimensions!.height / 2}px)`
             : '',
           position: hideCanvasScene && !hideTerrainBG ? 'absolute' : 'relative',
           overflow: 'visible',
@@ -113,7 +113,30 @@ export const CanvasRouter = () => {
       >
         {hideCanvasScene ? null : (
           <>
-            <DarkVeil />
+            <Grainient
+              color1="#3f3f3f"
+              color2="#6643b6"
+              color3="#8f8784"
+              timeSpeed={0.28}
+              colorBalance={0}
+              warpStrength={1.2}
+              warpFrequency={4}
+              warpSpeed={2}
+              warpAmplitude={60}
+              blendAngle={0}
+              blendSoftness={0.05}
+              rotationAmount={500}
+              noiseScale={2}
+              grainAmount={0.07}
+              grainScale={2}
+              grainAnimated={false}
+              contrast={1.5}
+              gamma={1.7}
+              saturation={1}
+              centerX={0}
+              centerY={0}
+              zoom={0.9}
+            />
             <KeyboardGroup
               containerDimensions={containerDimensions}
               configureKeyboardIsSelectable={configureKeyboardIsSelectable}
@@ -164,7 +187,7 @@ const KeyboardGroupContainer = styled.div`
   left: 0;
 `;
 const KeyboardGroup = React.memo((props: any) => {
-  const {loadProgress, configureKeyboardIsSelectable, containerDimensions} =
+  const { loadProgress, configureKeyboardIsSelectable, containerDimensions } =
     props;
   const [path] = useLocation();
   const ref = useRef<HTMLDivElement>(null);
@@ -215,7 +238,7 @@ const KeyboardGroup = React.memo((props: any) => {
   );
 }, shallowEqual);
 const Keyboards = React.memo((props: any) => {
-  const {dimensions, configureKeyboardIsSelectable} = props;
+  const { dimensions, configureKeyboardIsSelectable } = props;
   return (
     <>
       <KeyboardRouteGroup $position={0}>

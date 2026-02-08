@@ -1,11 +1,11 @@
-import React, {useMemo, useState} from 'react';
+import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faAngleDown, faPlus} from '@fortawesome/free-solid-svg-icons';
-import {HID} from '../../../shims/node-hid';
-import type {VIADefinitionV2, VIADefinitionV3} from '@the-via/reader';
-import type {ConnectedDevice} from '../../../types/types';
-import {useAppDispatch, useAppSelector} from 'src/store/hooks';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { HID } from '../../../shims/node-hid';
+import type { VIADefinitionV2, VIADefinitionV3 } from '@the-via/reader';
+import type { ConnectedDevice } from '../../../types/types';
+import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import {
   getDefinitions,
   getSelectedDefinition,
@@ -14,8 +14,8 @@ import {
   getConnectedDevices,
   getSelectedDevicePath,
 } from 'src/store/devicesSlice';
-import {selectConnectedDeviceByPath} from 'src/store/devicesThunks';
-import {isElectron} from 'src/utils/running-context';
+import { selectConnectedDeviceByPath } from 'src/store/devicesThunks';
+import { isElectron } from 'src/utils/running-context';
 
 const Container = styled.div`
   position: absolute;
@@ -30,29 +30,29 @@ const Container = styled.div`
 const KeyboardTitle = styled.label`
   pointer-events: all;
   display: inline-block;
-  background: var(--color_accent);
-  border-radius: 6px;
+  background: #101010;
+  border-radius: 10px;
   font-size: 16px;
   text-transform: uppercase;
-  color: #151412;
+  color: white;
   letter-spacing: 1px;
-  padding: 1px 15px;
+  padding: 6px 15px;
   margin-right: 0px;
-  border: solid 1px var(--bg_control);
+  border: none;
   cursor: pointer;
-  transition: transform 0.2s ease-in;
+  /* transition: transform 0.2s ease-in; */
   .inner-content {
     display: inline-block;
-    transition: transform 0.2s ease-in;
+    /* transition: transform 0.2s ease-in; */
   }
   &:hover {
-    transform: scale(1.05);
+    /* transform: scale(1.05); */
     .inner-content {
-      transform: scale(0.9523);
+      /* transform: scale(0.9523); */
     }
   }
 `;
-const KeyboardList = styled.ul<{$show: boolean}>`
+const KeyboardList = styled.ul<{ $show: boolean }>`
   padding: 0;
   border: 1px solid var(--bg_control);
   width: 160px;
@@ -69,7 +69,7 @@ const KeyboardList = styled.ul<{$show: boolean}>`
   overflow: hidden;
   transform: ${(props) => (props.$show ? 0 : `translateY(-5px)`)};
 `;
-const KeyboardButton = styled.button<{$selected?: boolean}>`
+const KeyboardButton = styled.button<{ $selected?: boolean }>`
   display: block;
   text-align: center;
   outline: none;
@@ -96,11 +96,11 @@ const KeyboardButton = styled.button<{$selected?: boolean}>`
   &:hover {
     border: none;
     background: ${(props) =>
-      props.$selected ? 'var(--bg_icon-highlighted)' : 'var(--bg_control)'};
+    props.$selected ? 'var(--bg_icon-highlighted)' : 'var(--bg_control)'};
     color: ${(props) =>
-      props.$selected
-        ? 'var(--color_control-highlighted)'
-        : 'var(--color_label-highlighted)'};
+    props.$selected
+      ? 'var(--color_control-highlighted)'
+      : 'var(--color_label-highlighted)'};
   }
 `;
 
@@ -113,7 +113,7 @@ const ClickCover = styled.div`
   right: 0;
   bottom: 0;
   opacity: 0.4;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(56, 56, 99, 0.75);
 `;
 
 type ConnectedKeyboardDefinition = [string, VIADefinitionV2 | VIADefinitionV3];
@@ -149,7 +149,7 @@ const KeyboardSelectors: React.FC<{
         {!isElectron && (
           <KeyboardButton onClick={requestAndChangeDevice}>
             Authorize New
-            <FontAwesomeIcon icon={faPlus} style={{marginLeft: '10px'}} />
+            <FontAwesomeIcon icon={faPlus} style={{ marginLeft: '10px' }} />
           </KeyboardButton>
         )}
       </KeyboardList>
@@ -171,9 +171,9 @@ export const Badge = () => {
         .map<ConnectedKeyboardDefinition>(([path, device]) => [
           path,
           definitions[(device as ConnectedDevice).vendorProductId] &&
-            definitions[(device as ConnectedDevice).vendorProductId][
-              (device as ConnectedDevice).requiredDefinitionVersion
-            ],
+          definitions[(device as ConnectedDevice).vendorProductId][
+          (device as ConnectedDevice).requiredDefinitionVersion
+          ],
         ])
         .filter((i) => i[1]),
     [connectedDevices, definitions],

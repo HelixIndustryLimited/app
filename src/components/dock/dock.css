@@ -2,19 +2,24 @@
 
 /* 外部容器，用于定位和限制高度 */
 .dock-outer {
-  position: fixed; /* 固定在视口中 */
-  top: 1.2rem;  /* 距离底部 24px */
+  position: fixed;
+  /* 固定在视口中 */
+  top: 1.2rem;
+  /* 距离底部 24px */
   align-self: center;
   display: flex;
   justify-content: center;
   z-index: 1000;
   /* 隐藏可能出现的滚动条（尽管在这个布局中不太可能） */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
 }
 
 .dock-outer::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, and Opera */
+  display: none;
+  /* Chrome, Safari, and Opera */
 }
 
 
@@ -22,13 +27,15 @@
 .dock-panel {
   display: flex;
   /* 将子项在交叉轴（垂直方向）上对齐到底部 */
-  align-items: flex-end; 
-  gap: 0.5rem; /* Dock 项目之间的间距 */
+  align-items: flex-end;
+  gap: 0.5rem;
+  /* Dock 项目之间的间距 */
   padding: 0.5rem;
-  border-radius: 1rem; /* 圆角 */
+  border-radius: 1rem;
+  /* 圆角 */
   border: 1px solid rgb(50, 50, 50);
   /* 使用 CSS 变量来接收来自 props 的高度 */
-  height: var(--panel-height, 68px); 
+  height: var(--panel-height, 68px);
   background-color: #2222222c;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -37,7 +44,8 @@
 
 /* 单个 Dock 项目 */
 .dock-item {
-  position: relative; /* 为绝对定位的 Label 提供上下文 */
+  position: relative;
+  /* 为绝对定位的 Label 提供上下文 */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -61,7 +69,7 @@
 
 /* Dock 图标 */
 .dock-icon {
-  color: #555;
+  color: #9982a8;
   transition: color 0.2s ease-in-out;
 }
 
@@ -82,13 +90,14 @@
   */
   transform: translateX(-50%);
   z-index: 1001;
-  background-color: #21212163;
-  border: 1px solid #404040ff;
+  background-color: rgb(22, 22, 22);
+  /* border: 1px solid rgb(50, 50, 50); */
   border-radius: 0.375rem;
-  padding: 0.125rem 0.5rem;
-  font-size: 12px;
+  padding: 0.2rem 0.5rem;
+  font-size: 10px;
   font-family: 'Lexend';
   color: #fff;
   white-space: nowrap;
-  pointer-events: none; /* 确保标签不会干扰鼠标事件 */
+  pointer-events: none;
+  /* 确保标签不会干扰鼠标事件 */
 }

@@ -1,13 +1,13 @@
-import {useState, FC, useRef, Dispatch, DragEvent, useMemo} from 'react';
-import {Pane} from './pane';
+import { useState, FC, useRef, Dispatch, DragEvent, useMemo } from 'react';
+import { Pane } from './pane';
 import styled from 'styled-components';
-import {ErrorMessage} from '../styled';
-import {AccentSelect} from '../inputs/accent-select';
-import {AccentSlider} from '../inputs/accent-slider';
-import {AccentUploadButton} from '../inputs/accent-upload-button';
+import { ErrorMessage } from '../styled';
+import { AccentSelect } from '../inputs/accent-select';
+import { AccentSlider } from '../inputs/accent-slider';
+import { AccentUploadButton } from '../inputs/accent-upload-button';
 import Layouts from '../Layouts';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faBook, faUpload, faXmark, faKeyboard, faStethoscope, faBrush, faGear} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBook, faUpload, faXmark, faKeyboard, faStethoscope, faBrush, faGear } from '@fortawesome/free-solid-svg-icons';
 import {
   keyboardDefinitionV2ToVIADefinitionV2,
   isVIADefinitionV2,
@@ -19,8 +19,8 @@ import {
   VIADefinitionV2,
   VIADefinitionV3,
 } from '@the-via/reader';
-import type {DefinitionVersion} from '@the-via/reader';
-import {useLocation} from 'wouter';
+import type { DefinitionVersion } from '@the-via/reader';
+import { useLocation } from 'wouter';
 import Dock from '../dock/dock';
 import {
   ControlRow,
@@ -35,10 +35,10 @@ import {
   Row,
   IconContainer,
 } from './grid';
-import {useDispatch} from 'react-redux';
-import {selectDevice, ensureSupportedIds} from 'src/store/devicesSlice';
-import {reloadConnectedDevices} from 'src/store/devicesThunks';
-import {useAppSelector} from 'src/store/hooks';
+import { useDispatch } from 'react-redux';
+import { selectDevice, ensureSupportedIds } from 'src/store/devicesSlice';
+import { reloadConnectedDevices } from 'src/store/devicesThunks';
+import { useAppSelector } from 'src/store/hooks';
 import {
   getCustomDefinitions,
   loadCustomDefinitions,
@@ -52,11 +52,11 @@ import {
   updateSelectedOptionKeys,
   updateShowMatrix,
 } from 'src/store/designSlice';
-import {MenuContainer} from './configure-panes/custom/menu-generator';
-import {MenuTooltip} from '../inputs/tooltip';
-import {MessageDialog} from '../inputs/message-dialog';
-import {IconButtonUnfilledContainer} from '../inputs/icon-button';
-import {formatNumberAsHex} from 'src/utils/format';
+import { MenuContainer } from './configure-panes/custom/menu-generator';
+import { MenuTooltip } from '../inputs/tooltip';
+import { MessageDialog } from '../inputs/message-dialog';
+import { IconButtonUnfilledContainer } from '../inputs/icon-button';
+import { formatNumberAsHex } from 'src/utils/format';
 import {
   getDesignDefinitionVersion,
   updateDesignDefinitionVersion,
@@ -175,22 +175,21 @@ function importDefinitions(
                   ? res
                   : keyboardDefinitionV2ToVIADefinitionV2(res)
                 : isVIADefinitionV3(res)
-                ? res
-                : keyboardDefinitionV3ToVIADefinitionV3(res);
+                  ? res
+                  : keyboardDefinitionV3ToVIADefinitionV3(res);
             return definition;
           } else {
             errors = (
               version === 'v2'
                 ? isKeyboardDefinitionV2.errors ||
-                  isVIADefinitionV2.errors ||
-                  []
+                isVIADefinitionV2.errors ||
+                []
                 : isKeyboardDefinitionV3.errors ||
-                  isVIADefinitionV3.errors ||
-                  []
+                isVIADefinitionV3.errors ||
+                []
             ).map(
               (e) =>
-                `${fileName} ${e.dataPath ? e.dataPath + ': ' : 'Object: '}${
-                  e.message
+                `${fileName} ${e.dataPath ? e.dataPath + ': ' : 'Object: '}${e.message
                 }`,
             );
           }
@@ -207,8 +206,8 @@ function importDefinitions(
     if (errors.length) {
       setErrors(errors);
     } else {
-      dispatch(loadCustomDefinitions({definitions, version}));
-      dispatch(storeCustomDefinitions({definitions, version}));
+      dispatch(loadCustomDefinitions({ definitions, version }));
+      dispatch(storeCustomDefinitions({ definitions, version }));
       dispatch(
         ensureSupportedIds({
           productIds: definitions.map((d) => d.vendorProductId),
@@ -228,7 +227,7 @@ function onDrop(
   setErrors: (errors: string[]) => void,
 ) {
   evt.preventDefault();
-  const {dataTransfer} = evt;
+  const { dataTransfer } = evt;
   if (dataTransfer?.items) {
     const items = Array.from(dataTransfer.items)
       .filter((item) => {
@@ -268,30 +267,30 @@ export const DesignTab: FC = () => {
     versionDefinitions[selectedDefinitionIndex] &&
     versionDefinitions[selectedDefinitionIndex][definitionVersion];
   const uploadButton = useRef<HTMLInputElement>();
-  
+
   const dockItems = [
-    { 
-      icon: <FontAwesomeIcon icon={faKeyboard} size="lg" />, 
-      label: 'Configure', 
-      onClick: () => setLocation('/') 
+    {
+      icon: <FontAwesomeIcon icon={faKeyboard} size="lg" />,
+      label: 'Configure',
+      onClick: () => setLocation('/')
     },
-    { 
-      icon: <FontAwesomeIcon icon={faStethoscope} size="lg" />, 
-      label: 'Key Tester', 
-      onClick: () => setLocation('/test') 
+    {
+      icon: <FontAwesomeIcon icon={faStethoscope} size="lg" />,
+      label: 'Key Tester',
+      onClick: () => setLocation('/test')
     },
-    { 
-      icon: <FontAwesomeIcon icon={faBrush} size="lg" />, 
-      label: 'Design', 
-      onClick: () => setLocation('/design') 
+    {
+      icon: <FontAwesomeIcon icon={faBrush} size="lg" />,
+      label: 'Design',
+      onClick: () => setLocation('/design')
     },
-    { 
-      icon: <FontAwesomeIcon icon={faGear} size="lg" />, 
-      label: 'Settings', 
-      onClick: () => setLocation('/settings') 
+    {
+      icon: <FontAwesomeIcon icon={faGear} size="lg" />,
+      label: 'Settings',
+      onClick: () => setLocation('/settings')
     },
   ];
-  
+
   return (
     <>
       <DesignPane
@@ -302,42 +301,42 @@ export const DesignTab: FC = () => {
           evt.stopPropagation();
         }}
       >
-      <MessageDialog
-        isOpen={!hideDesignWarning}
-        onClose={() => {
-          sessionStorage.setItem('hideDesignWarning', '1');
-          hideDesignWarning = '1';
-          designWarningSeen = designWarningSeen + 1;
-          localStorage.setItem('designWarningSeen', `${designWarningSeen}`);
-        }}
-      >
-        This feature is intended for development purposes. If your keyboard is
-        not recognized automatically by VIA, please contact your keyboard's
-        manufacturer or vendor.
-      </MessageDialog>
-      <SinglePaneFlexCell ref={flexRef}>
-        {!definition && (
-          <UploadIcon
-            onClick={() => {
-              uploadButton.current && uploadButton.current.click();
-            }}
-            onDrop={(evt) =>
-              onDrop(evt, definitionVersion, dispatch, setErrors)
-            }
-            onDragOver={(evt) => {
-              evt.dataTransfer.effectAllowed = 'copyMove';
-              evt.dataTransfer.dropEffect = 'copy';
-              evt.preventDefault();
-              evt.stopPropagation();
-            }}
-          >
-            <FontAwesomeIcon icon={faUpload} />
-          </UploadIcon>
-        )}
-      </SinglePaneFlexCell>
-      <Grid style={{overflow: 'hidden'}}>
-        <MenuCell style={{pointerEvents: 'all'}}>
-          {/* <MenuContainer>
+        <MessageDialog
+          isOpen={!hideDesignWarning}
+          onClose={() => {
+            sessionStorage.setItem('hideDesignWarning', '1');
+            hideDesignWarning = '1';
+            designWarningSeen = designWarningSeen + 1;
+            localStorage.setItem('designWarningSeen', `${designWarningSeen}`);
+          }}
+        >
+          This feature is intended for development purposes. If your keyboard is
+          not recognized automatically by VIA, please contact your keyboard's
+          manufacturer or vendor.
+        </MessageDialog>
+        <SinglePaneFlexCell ref={flexRef}>
+          {!definition && (
+            <UploadIcon
+              onClick={() => {
+                uploadButton.current && uploadButton.current.click();
+              }}
+              onDrop={(evt) =>
+                onDrop(evt, definitionVersion, dispatch, setErrors)
+              }
+              onDragOver={(evt) => {
+                evt.dataTransfer.effectAllowed = 'copyMove';
+                evt.dataTransfer.dropEffect = 'copy';
+                evt.preventDefault();
+                evt.stopPropagation();
+              }}
+            >
+              <FontAwesomeIcon icon={faUpload} />
+            </UploadIcon>
+          )}
+        </SinglePaneFlexCell>
+        <Grid style={{ overflow: 'hidden' }}>
+          <MenuCell style={{ pointerEvents: 'all' }}>
+            {/* <MenuContainer>
             <Row $selected={true}>
               <IconContainer>
                 <FontAwesomeIcon icon={faBook} />
@@ -345,136 +344,136 @@ export const DesignTab: FC = () => {
               </IconContainer>
             </Row>
           </MenuContainer> */}
-        </MenuCell>
-        <SpanOverflowCell>
-          <Container>
-            <ControlRow>
-              <Label className="light-label">Load Draft Definition</Label>
-              <Detail>
-                <AccentUploadButton
-                  multiple
-                  inputRef={uploadButton}
-                  onLoad={(files) => {
-                    importDefinitions(
-                      Array.from(files),
-                      definitionVersion,
-                      dispatch,
-                      setErrors,
-                    );
-                  }}
-                >
-                  Load
-                </AccentUploadButton>
-              </Detail>
-            </ControlRow>
-            <ControlRow>
-              <Label className="light-label">Use V2 definitions (deprecated)</Label>
-              <Detail>
-                <AccentSlider
-                  isChecked={definitionVersion === 'v2'}
-                  onChange={(val) =>
-                    dispatch(updateDesignDefinitionVersion(val ? 'v2' : 'v3'))
-                  }
-                />
-              </Detail>
-            </ControlRow>
-            {definition && (
-              <>
-                <ControlRow>
-                  <Label className="light-label">Shown Keyboard Definition</Label>
-                  <Detail>
-                    <AccentSelect
-                      onChange={(option: any) => {
-                        // Reset selected layouts when choosing a different
-                        // definition
-                        dispatch(updateSelectedOptionKeys([]));
-
-                        if (option) {
-                          dispatch(
-                            updateSelectedDefinitionIndex(+option.value),
-                          );
-                        }
-                      }}
-                      value={options[selectedDefinitionIndex]}
-                      options={options}
-                    />
-                  </Detail>
-                </ControlRow>
-              </>
-            )}
-            {definition && (
-              <Layouts
-                definition={definition}
-                onLayoutChange={(newSelectedOptionKeys) => {
-                  dispatch(updateSelectedOptionKeys(newSelectedOptionKeys));
-                }}
-              />
-            )}
-            {definition && (
+          </MenuCell>
+          <SpanOverflowCell>
+            <Container>
               <ControlRow>
-                <Label className="light-label">Show Matrix</Label>
+                <Label className="light-label">Load Draft Definition</Label>
+                <Detail>
+                  <AccentUploadButton
+                    multiple
+                    inputRef={uploadButton}
+                    onLoad={(files) => {
+                      importDefinitions(
+                        Array.from(files),
+                        definitionVersion,
+                        dispatch,
+                        setErrors,
+                      );
+                    }}
+                  >
+                    Load
+                  </AccentUploadButton>
+                </Detail>
+              </ControlRow>
+              <ControlRow>
+                <Label className="light-label">Use V2 definitions (deprecated)</Label>
                 <Detail>
                   <AccentSlider
-                    isChecked={showMatrix}
-                    onChange={(val) => {
-                      dispatch(updateShowMatrix(val));
-                    }}
+                    isChecked={definitionVersion === 'v2'}
+                    onChange={(val) =>
+                      dispatch(updateDesignDefinitionVersion(val ? 'v2' : 'v3'))
+                    }
                   />
                 </Detail>
               </ControlRow>
-            )}
-            {errors.map((error: string) => (
-              <IndentedControlRow>
-                <DesignErrorMessage>{error}</DesignErrorMessage>
-              </IndentedControlRow>
-            ))}
-            <ControlRow>
-              <Label className="light-label">Draft Definitions</Label>
-              <Detail style={{fontSize: '16px'}}>
-                {Object.values(versionDefinitions).length} Definitions
-              </Detail>
-            </ControlRow>
-            {versionDefinitions.map((definition) => {
-              return (
-                <IndentedControlRow
-                  key={`${definitionVersion}-${definition[definitionVersion].vendorProductId}`}
-                >
-                  <SubLabel className="light-label">{definition[definitionVersion].name}</SubLabel>
+              {definition && (
+                <>
+                  <ControlRow>
+                    <Label className="light-label">Shown Keyboard Definition</Label>
+                    <Detail>
+                      <AccentSelect
+                        onChange={(option: any) => {
+                          // Reset selected layouts when choosing a different
+                          // definition
+                          dispatch(updateSelectedOptionKeys([]));
+
+                          if (option) {
+                            dispatch(
+                              updateSelectedDefinitionIndex(+option.value),
+                            );
+                          }
+                        }}
+                        value={options[selectedDefinitionIndex]}
+                        options={options}
+                      />
+                    </Detail>
+                  </ControlRow>
+                </>
+              )}
+              {definition && (
+                <Layouts
+                  definition={definition}
+                  onLayoutChange={(newSelectedOptionKeys) => {
+                    dispatch(updateSelectedOptionKeys(newSelectedOptionKeys));
+                  }}
+                />
+              )}
+              {definition && (
+                <ControlRow>
+                  <Label className="light-label">Show Matrix</Label>
                   <Detail>
-                    {formatNumberAsHex(
-                      definition[definitionVersion].vendorProductId,
-                      8,
-                    )}
-                    <IconButtonUnfilledContainer
-                      onClick={() => {
-                        dispatch(
-                          unloadCustomDefinition({
-                            id: definition[definitionVersion].vendorProductId,
-                            version: definitionVersion,
-                          }),
-                        );
+                    <AccentSlider
+                      isChecked={showMatrix}
+                      onChange={(val) => {
+                        dispatch(updateShowMatrix(val));
                       }}
-                      style={{marginLeft: 10, borderRadius: 4}}
-                    >
-                      <FontAwesomeIcon icon={faXmark} size={'lg'} />
-                    </IconButtonUnfilledContainer>
+                    />
                   </Detail>
+                </ControlRow>
+              )}
+              {errors.map((error: string) => (
+                <IndentedControlRow>
+                  <DesignErrorMessage>{error}</DesignErrorMessage>
                 </IndentedControlRow>
-              );
-            })}
-          </Container>
-        </SpanOverflowCell>
-      </Grid>
-    </DesignPane>
-    {/* <DockContainer> */}
-      <Dock 
+              ))}
+              <ControlRow>
+                <Label className="light-label">Draft Definitions</Label>
+                <Detail style={{ fontSize: '16px' }}>
+                  {Object.values(versionDefinitions).length} Definitions
+                </Detail>
+              </ControlRow>
+              {versionDefinitions.map((definition) => {
+                return (
+                  <IndentedControlRow
+                    key={`${definitionVersion}-${definition[definitionVersion].vendorProductId}`}
+                  >
+                    <SubLabel className="light-label">{definition[definitionVersion].name}</SubLabel>
+                    <Detail>
+                      {formatNumberAsHex(
+                        definition[definitionVersion].vendorProductId,
+                        8,
+                      )}
+                      <IconButtonUnfilledContainer
+                        onClick={() => {
+                          dispatch(
+                            unloadCustomDefinition({
+                              id: definition[definitionVersion].vendorProductId,
+                              version: definitionVersion,
+                            }),
+                          );
+                        }}
+                        style={{ marginLeft: 10, borderRadius: 4 }}
+                      >
+                        <FontAwesomeIcon icon={faXmark} size={'lg'} />
+                      </IconButtonUnfilledContainer>
+                    </Detail>
+                  </IndentedControlRow>
+                );
+              })}
+            </Container>
+          </SpanOverflowCell>
+        </Grid>
+      </DesignPane>
+      {/* <DockContainer> */}
+      <Dock
         items={dockItems}
-          panelHeight={40}
-          baseItemSize={40}
-          magnification={45}
-          distance={90}
+        panelHeight={40}
+        baseItemSize={40}
+        magnification={45}
+        distance={90}
       />
-    {/* </DockContainer> */}
-  </>
+      {/* </DockContainer> */}
+    </>
   );
 };

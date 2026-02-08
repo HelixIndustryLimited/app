@@ -1,11 +1,11 @@
-import {KeyColorType} from '@the-via/reader';
+import { KeyColorType } from '@the-via/reader';
 import React from 'react';
-import {useMemo} from 'react';
-import {shallowEqual} from 'react-redux';
-import {useAppSelector} from 'src/store/hooks';
-import {getSelectedTheme} from 'src/store/settingsSlice';
-import {getDarkenedColor} from 'src/utils/color-math';
-import {CSSVarObject} from 'src/utils/keyboard-rendering';
+import { useMemo } from 'react';
+import { shallowEqual } from 'react-redux';
+import { useAppSelector } from 'src/store/hooks';
+import { getSelectedTheme } from 'src/store/settingsSlice';
+import { getDarkenedColor } from 'src/utils/color-math';
+import { CSSVarObject } from 'src/utils/keyboard-rendering';
 import styled from 'styled-components';
 
 const CaseGroup = styled.div<{}>``;
@@ -37,9 +37,9 @@ const InnerCase = styled.div<{
 
 export const CaseInsideBorder = 10;
 
-export const Case = React.memo((props: {width: number; height: number}) => {
+export const Case = React.memo((props: { width: number; height: number }) => {
   const theme = useAppSelector(getSelectedTheme);
-  const customColor = 'rgba(16, 16, 16, 0.5)';
+  const customColor = 'rgba(16, 16, 16, 0.15)';
   const outsideColor = useMemo(() => theme[KeyColorType.Accent].c, [theme]);
   const properWidth =
     props.width * CSSVarObject.keyXPos - CSSVarObject.keyXSpacing;

@@ -1,11 +1,11 @@
-import {THEMES} from 'src/utils/themes';
+import { THEMES, Theme } from 'src/utils/themes';
 
 export const updateCSSVariables = (themeName: keyof typeof THEMES) => {
-  const selectedTheme = THEMES[themeName] || THEMES['OLIVIA_DARK'];
+  const selectedTheme = (THEMES[themeName] || THEMES['OLIVIA_DARK']) as Theme;
 
   document.documentElement.style.setProperty(
     '--color_accent',
-    selectedTheme.accent.c,
+    selectedTheme.uiAccent || selectedTheme.accent.c,
   );
   document.documentElement.style.setProperty(
     '--color_inside-accent',
@@ -115,7 +115,7 @@ export const getHSVFrom256 = (color: number[]) => {
   return [Math.round((360 * color[0]) / 255), Math.round(color[1] / 255), 1];
 };
 
-export function getRGB({hue, sat}: {hue: number; sat: number}): string {
+export function getRGB({ hue, sat }: { hue: number; sat: number }): string {
   sat = sat / 255;
   hue = Math.round(360 * hue) / 255;
   const c = sat;
@@ -179,7 +179,7 @@ export function calcRadialMagnitude(x: number, y: number) {
   }
 }
 
-export function hsToRgb({hue, sat}: {hue: number; sat: number}) {
+export function hsToRgb({ hue, sat }: { hue: number; sat: number }) {
   sat = sat / 255;
   hue = Math.round(360 * hue) / 255;
   const c = sat;
@@ -192,8 +192,8 @@ export function hsToRgb({hue, sat}: {hue: number; sat: number}) {
   return [r, g, b];
 }
 
-export function getHex({hue, sat}: {hue: number; sat: number}) {
-  let [r, g, b] = hsToRgb({hue, sat}).map((x) => x.toString(16));
+export function getHex({ hue, sat }: { hue: number; sat: number }) {
+  let [r, g, b] = hsToRgb({ hue, sat }).map((x) => x.toString(16));
   if (r.length == 1) r = '0' + r;
   if (g.length == 1) g = '0' + g;
   if (b.length == 1) b = '0' + b;

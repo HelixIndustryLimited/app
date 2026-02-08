@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import {ErrorLink} from '../panes/errors';
-import {ExternalLinks, ExternalLinks_helix} from './external-links';
+import { ErrorLink } from '../panes/errors';
+import { ExternalLinks, ExternalLinks_helix } from './external-links';
 
 const Container = styled.div`
   width: 100vw;
@@ -14,7 +14,7 @@ const Container = styled.div`
 `;
 
 const GlobalContainer = styled(Container)`
-  background: rgba(16, 16, 16, 0.6);
+  background: rgba(16, 16, 16, 1);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   column-gap: 20px;

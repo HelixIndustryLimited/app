@@ -1,15 +1,17 @@
-import {THEMES as REMOTETHEMES} from '@the-via/reader';
-import {KeyColorPair} from 'src/types/keyboard-rendering';
+import { THEMES as REMOTETHEMES } from '@the-via/reader';
+import { KeyColorPair } from 'src/types/keyboard-rendering';
 
 export type Theme = {
   alpha: KeyColorPair;
   mod: KeyColorPair;
   accent: KeyColorPair;
+  uiAccent?: string;
 };
 
 export const THEMES = {
   ...{
     HELIX: {
+      uiAccent: '#9982a8', // Placeholder purple
       alpha: {
         c: '#2a2a2b',
         t: '#b39d50',
